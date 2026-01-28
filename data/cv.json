@@ -1,0 +1,132 @@
+{
+  "profile": {
+    "name": "Blanca M Barrufet Garbayo",
+    "headline": "Computer Engineering and Business Student",
+    "location": "Barcelona, Spain",
+    "email": "blancamariabarrufet@gmail.com",
+    "website": "www.reallygreatsite.com",
+    "linkedin": "",
+    "github": ""
+  },
+  "summary": [
+    "Conscientious and enthusiastic student dedicated to every project with a passion for AI and software engineering",
+    "Strong background combining software engineering, data, and business strategy with hands-on experience in enterprise AI chatbots",
+    "Excellent team player with empathy and strong communication skills, committed to continuous learning and growth"
+  ],
+  "skills": {
+    "languages": ["Python", "Java", "C/C++", "SQL", "HTML", "ASSEMBLY", "MATLAB", "LaTeX"],
+    "frameworks": ["LangGraph", "LlamaIndex"],
+    "tools": ["pgvector", "Office", "Adobe"],
+    "methods": ["OOP", "Scrum Methodology", "Problem-solving", "Communication", "Team-work"]
+  },
+  "experience": [
+    {
+      "id": "exp-1",
+      "company": "Connecthink Innovation, S.L.",
+      "title": "AI Chatbot Developer",
+      "start": "November 2025",
+      "end": "Present",
+      "bullets": [
+        "Development of enterprise AI chatbots for querying and managing large-scale datasets",
+        "Implementation of RAG architectures using LlamaIndex, pgvector, and LangGraph",
+        "Integration with internal systems and optimization of semantic search and response quality"
+      ],
+      "tags": ["Python", "RAG", "LangGraph", "LlamaIndex", "pgvector", "AI", "Chatbots"]
+    },
+    {
+      "id": "exp-2",
+      "company": "La Salle - URL",
+      "title": "University Collaborator - Mathematics Teacher Assistant",
+      "start": "September 2024",
+      "end": "January 2026",
+      "bullets": [
+        "Mathematics teacher and teaching assistant for algebra, calculus and mathematical fundamentals",
+        "Supporting students in the Artificial Intelligence degree program",
+        "Mentoring and guiding students through complex mathematical concepts"
+      ],
+      "tags": ["Teaching", "Mathematics", "AI", "Mentoring", "Communication"]
+    }
+  ],
+  "education": [
+    {
+      "id": "edu-1",
+      "school": "University of La Salle - URL",
+      "program": "Computer Engineering and Business",
+      "start": "September 2022",
+      "end": "Present",
+      "description": "Strong academic focus combining software engineering, data, and business strategy. High workload and rigorous program requiring strong discipline, adaptability, and continuous learning.",
+      "highlights": [
+        "Software engineering fundamentals",
+        "Data structures and algorithms",
+        "Business strategy and management"
+      ]
+    }
+  ],
+  "extracurricular": [
+    {
+      "id": "extra-1",
+      "name": "Mad for Science Program",
+      "organization": "Barcelona Supercomputing Center & Fundació Catalunya La Pedrera",
+      "description": "Mad for supercomputing course for baccalaureate students interested in STEM, organized by the Barcelona Supercomputing Center and Fundació Catalunya La Pedrera"
+    },
+    {
+      "id": "extra-2",
+      "name": "Can Computers Do Math - UAB",
+      "organization": "Universitat Autònoma de Barcelona",
+      "description": "Summer program that connects talented students with top researchers. Includes research, workshops, and science communication training, fostering critical thinking and innovation"
+    },
+    {
+      "id": "extra-3",
+      "name": "Piano Lessons",
+      "organization": "xxx",
+      "description": "xxx"
+    }
+  ],
+  "certifications": [
+    {
+      "id": "cert-1",
+      "name": "CCNA",
+      "issuer": "Cisco",
+      "date": "",
+      "tags": ["Networking"]
+    },
+    {
+      "id": "cert-2",
+      "name": "C2 Level English",
+      "issuer": "",
+      "date": "",
+      "tags": ["Languages", "English"]
+    }
+  ],
+  "languages": [
+    {
+      "language": "Spanish",
+      "proficiency": "Native"
+    },
+    {
+      "language": "Catalan",
+      "proficiency": "Native"
+    },
+    {
+      "language": "English",
+      "proficiency": "Proficiency"
+    },
+    {
+      "language": "German",
+      "proficiency": "Basic"
+    }
+  ],
+  "awards": [
+    {
+      "id": "award-1",
+      "name": "Scholarship for Women in Engineering",
+      "description": "Recognized for excellence and commitment to women in STEM fields"
+    },
+    {
+      "id": "award-2",
+      "name": "Winner of the First Lego League",
+      "description": "First place in robotics and innovation competition"
+    }
+  ],
+  "projects": []
+}

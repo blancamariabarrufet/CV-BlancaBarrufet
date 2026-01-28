@@ -1,0 +1,29 @@
+{
+  "name": "cv-blancabarrufet",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "keywords": [],
+  "author": "Blanca M Barrufet Garbayo",
+  "license": "ISC",
+  "description": "Professional portfolio with interactive CV and AI chatbot",
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@types/node": "^25.0.10",
+    "@types/react": "^19.2.10",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.4.23",
+    "framer-motion": "^12.29.2",
+    "next": "^16.1.6",
+    "postcss": "^8.5.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.9.3"
+  }
+}
