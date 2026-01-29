@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface HeaderProps {
   terminalMode: boolean;
@@ -10,12 +10,33 @@ interface HeaderProps {
 
 const Header = ({ terminalMode, onToggleTerminal }: HeaderProps) => {
   const pathname = usePathname();
+  const router = useRouter();
 
   const navItems = [
     { label: "Home", href: "/" },
     { label: "CV", href: "/cv" },
-    { label: "Contact", href: "#contact" },
   ];
+
+  const handleContactClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (pathname === "/") {
+      // If already on home page, just scroll to contact section
+      const contactSection = document.getElementById("contact");
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // If on another page, navigate to home page with hash
+      router.push("/#contact");
+      // After navigation, scroll to the section
+      setTimeout(() => {
+        const contactSection = document.getElementById("contact");
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
@@ -40,6 +61,15 @@ const Header = ({ terminalMode, onToggleTerminal }: HeaderProps) => {
                 </Link>
               </li>
             ))}
+            <li>
+              <a
+                href="/#contact"
+                onClick={handleContactClick}
+                className="text-sm font-medium transition-colors hover:text-gray-900 text-gray-600 cursor-pointer"
+              >
+                Contact
+              </a>
+            </li>
             <li>
               <button
                 onClick={onToggleTerminal}

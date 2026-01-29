@@ -13,9 +13,20 @@ interface ExperienceItem {
   tags: string[];
 }
 
+interface ProjectItem {
+  id: string;
+  name: string;
+  type: string;
+  start: string;
+  end: string;
+  bullets: string[];
+  tags: string[];
+}
+
 const InteractiveCv = () => {
   const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
   const [expandedExperience, setExpandedExperience] = useState<string[]>([]);
+  const [expandedProjects, setExpandedProjects] = useState<string[]>([]);
 
   const allSkills = [
     ...cvData.skills.languages,
@@ -29,6 +40,12 @@ const InteractiveCv = () => {
     );
   };
 
+  const toggleProject = (id: string) => {
+    setExpandedProjects((prev) =>
+      prev.includes(id) ? prev.filter((projId) => projId !== id) : [...prev, id]
+    );
+  };
+
   const handleSkillClick = (skill: string) => {
     setSelectedSkill(selectedSkill === skill ? null : skill);
   };
@@ -36,6 +53,11 @@ const InteractiveCv = () => {
   const isExperienceHighlighted = (experience: ExperienceItem) => {
     if (!selectedSkill) return false;
     return experience.tags.some((tag) => tag.toLowerCase() === selectedSkill.toLowerCase());
+  };
+
+  const isProjectHighlighted = (project: ProjectItem) => {
+    if (!selectedSkill) return false;
+    return project.tags.some((tag) => tag.toLowerCase() === selectedSkill.toLowerCase());
   };
 
   const resetFilters = () => {
@@ -236,6 +258,96 @@ const InteractiveCv = () => {
           })}
         </div>
       </section>
+
+      {/* Portfolio Section */}
+      {cvData.projects.length > 0 && (
+        <section>
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">Portfolio</h2>
+          <div className="space-y-4">
+            {cvData.projects.map((project) => {
+              const isExpanded = expandedProjects.includes(project.id);
+              const isHighlighted = isProjectHighlighted(project);
+
+              return (
+                <div
+                  key={project.id}
+                  className={`border rounded-xl p-6 transition-all ${
+                    isHighlighted
+                      ? "border-gray-900 bg-gray-50 shadow-lg ring-2 ring-gray-900"
+                      : "border-gray-200 bg-white hover:shadow-md"
+                  }`}
+                >
+                  <div
+                    className="flex items-start justify-between cursor-pointer"
+                    onClick={() => toggleProject(project.id)}
+                  >
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <h3 className="text-xl font-bold text-gray-900">{project.name}</h3>
+                          <p className="text-gray-600 font-medium">{project.type}</p>
+                        </div>
+                        <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full whitespace-nowrap ml-4">
+                          {project.start} - {project.end}
+                        </span>
+                      </div>
+
+                      {isExpanded && (
+                        <div className="mt-4 space-y-4 animate-fade-in">
+                          <ul className="space-y-2">
+                            {project.bullets.map((bullet, idx) => (
+                              <li key={idx} className="text-gray-700 flex gap-2">
+                                <span className="text-gray-400 font-bold">•</span>
+                                <span>{bullet}</span>
+                              </li>
+                            ))}
+                          </ul>
+
+                          <div className="flex flex-wrap gap-2 pt-2">
+                            {project.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className={`text-xs px-3 py-1 rounded-full font-medium ${
+                                  selectedSkill?.toLowerCase() === tag.toLowerCase()
+                                    ? "bg-gray-900 text-white"
+                                    : "bg-gray-100 text-gray-700"
+                                }`}
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    <button
+                      className="ml-4 text-gray-400 hover:text-gray-600 transition-transform"
+                      aria-label={isExpanded ? "Collapse" : "Expand"}
+                    >
+                      <svg
+                        className={`w-6 h-6 transition-transform ${
+                          isExpanded ? "rotate-180" : ""
+                        }`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* Education */}
       <section>

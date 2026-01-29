@@ -1,7 +1,33 @@
+"use client";
+
 import cvData from "@/data/cv.json";
+import { usePathname, useRouter } from "next/navigation";
 
 const Footer = () => {
   const { profile } = cvData;
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleContactClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (pathname === "/") {
+      // If already on home page, just scroll to contact section
+      const contactSection = document.getElementById("contact");
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // If on another page, navigate to home page with hash
+      router.push("/#contact");
+      // After navigation, scroll to the section
+      setTimeout(() => {
+        const contactSection = document.getElementById("contact");
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
+  };
 
   return (
     <footer className="bg-gray-900 text-gray-300 py-12 mt-20">
@@ -27,7 +53,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#contact" className="hover:text-white transition-colors">
+                <a href="/#contact" onClick={handleContactClick} className="hover:text-white transition-colors cursor-pointer">
                   Contact
                 </a>
               </li>

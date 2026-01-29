@@ -32,7 +32,7 @@ export default function Home() {
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-gray-900 rounded-full mt-2"></div>
                   <p className="text-gray-700 text-lg">
-                    Expertise in LangGraph, LlamaIndex, and semantic search optimization
+                    Intern Programming in LangGraph, LlamaIndex, and semantic search optimization
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -84,10 +84,14 @@ export default function Home() {
           </div>
 
           {/* Quick Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 max-w-5xl mx-auto mb-12">
             <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl p-6 text-center">
               <div className="text-3xl font-bold mb-2">{cvData.experience.length}</div>
               <div className="text-gray-300">Positions</div>
+            </div>
+            <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl p-6 text-center">
+              <div className="text-3xl font-bold mb-2">{cvData.projects.length}</div>
+              <div className="text-gray-300">Projects</div>
             </div>
             <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl p-6 text-center">
               <div className="text-3xl font-bold mb-2">
@@ -106,7 +110,8 @@ export default function Home() {
           </div>
 
           {/* Experience Preview */}
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="max-w-4xl mx-auto space-y-6 mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Professional Experience</h2>
             {cvData.experience.map((exp) => (
               <div
                 key={exp.id}
@@ -142,6 +147,47 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          {/* Portfolio Section */}
+          {cvData.projects.length > 0 && (
+            <div className="max-w-4xl mx-auto space-y-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Portfolio</h2>
+              {cvData.projects.map((project) => (
+                <div
+                  key={project.id}
+                  className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow"
+                >
+                  <div className="flex justify-between items-start mb-3">
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900">{project.name}</h3>
+                      <p className="text-gray-600">{project.type}</p>
+                    </div>
+                    <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                      {project.start} - {project.end}
+                    </span>
+                  </div>
+                  <ul className="space-y-2">
+                    {project.bullets.map((bullet, idx) => (
+                      <li key={idx} className="text-gray-700 flex gap-2">
+                        <span className="text-gray-400">•</span>
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-xs px-3 py-1 bg-gray-100 text-gray-700 rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="text-center mt-12">
             <Link

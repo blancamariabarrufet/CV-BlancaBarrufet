@@ -1,10 +1,36 @@
 "use client";
 
+import { usePathname, useRouter } from "next/navigation";
+
 interface CvActionButtonsProps {
   email: string;
 }
 
 const CvActionButtons = ({ email }: CvActionButtonsProps) => {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleContactClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (pathname === "/") {
+      // If already on home page, just scroll to contact section
+      const contactSection = document.getElementById("contact");
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // If on another page, navigate to home page with hash
+      router.push("/#contact");
+      // After navigation, scroll to the section
+      setTimeout(() => {
+        const contactSection = document.getElementById("contact");
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
+  };
+
   return (
     <div className="flex flex-wrap gap-4 justify-center no-print">
       <a
@@ -28,8 +54,9 @@ const CvActionButtons = ({ email }: CvActionButtonsProps) => {
         Download PDF
       </a>
       <a
-        href="#contact"
-        className="px-6 py-3 bg-white text-gray-900 font-semibold rounded-lg border-2 border-gray-900 hover:bg-gray-50 transition-colors flex items-center gap-2"
+        href="/#contact"
+        onClick={handleContactClick}
+        className="px-6 py-3 bg-white text-gray-900 font-semibold rounded-lg border-2 border-gray-900 hover:bg-gray-50 transition-colors flex items-center gap-2 cursor-pointer"
       >
         <svg
           className="w-5 h-5"

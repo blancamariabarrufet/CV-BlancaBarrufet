@@ -65,9 +65,9 @@
   "extracurricular": [
     {
       "id": "extra-1",
-      "name": "Mad for Science Program",
+      "name": "Mad for Supercomputing",
       "organization": "Barcelona Supercomputing Center & Fundació Catalunya La Pedrera",
-      "description": "Mad for supercomputing course for baccalaureate students interested in STEM, organized by the Barcelona Supercomputing Center and Fundació Catalunya La Pedrera"
+      "description": "Mad for supercomputing course for baccalaureate students interested in STEM, organized by the Barcelona Supercomputing Center and Fundació Catalunya La Pedrera. In this course I learned about the basics of supercomputing how do they work and how to use them."
     },
     {
       "id": "extra-2",
@@ -78,8 +78,8 @@
     {
       "id": "extra-3",
       "name": "Piano Lessons",
-      "organization": "xxx",
-      "description": "xxx"
+      "organization": "Conservatory-Academy",
+      "description": "Classical piano training since age 5, developing discipline, creativity, and performance skills through years of dedicated practice and study"
     }
   ],
   "certifications": [
@@ -128,5 +128,32 @@
       "description": "First place in robotics and innovation competition"
     }
   ],
-  "projects": []
+  "projects": [
+    {
+      "id": "proj-1",
+      "name": "Project Name 1",
+      "type": "Personal Project",
+      "start": "Month Year",
+      "end": "Month Year",
+      "bullets": [
+        "Description of what you built and the problem it solved",
+        "Technologies and methodologies used in the implementation",
+        "Key achievements or outcomes of the project"
+      ],
+      "tags": ["Python", "React", "AI", "Web Development"]
+    },
+    {
+      "id": "proj-2",
+      "name": "Project Name 2",
+      "type": "Academic Project",
+      "start": "Month Year",
+      "end": "Month Year",
+      "bullets": [
+        "Description of what you built and the problem it solved",
+        "Technologies and methodologies used in the implementation",
+        "Key achievements or outcomes of the project"
+      ],
+      "tags": ["Java", "SQL", "Data Analysis"]
+    }
+  ]
 }

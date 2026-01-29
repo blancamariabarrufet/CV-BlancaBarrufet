@@ -102,13 +102,13 @@ const ChatWidget = () => {
       : "flex-1 overflow-y-auto p-4 space-y-1 scroll-smooth bg-[#1E1E1E]",
     userMessage: "bg-transparent text-white",
     assistantMessage: "bg-transparent text-white",
-    loadingDot: "bg-[#28F528]",
+    loadingDot: "bg-[#FFA6C9]",
     quickActions: terminalMode
       ? "px-6 py-3 bg-[#1E1E1E] border-t border-[#333]"
       : "px-4 py-2 bg-[#1E1E1E] border-t border-[#333]",
     quickActionBtn: terminalMode
-      ? "text-sm px-4 py-2 bg-[#2A2A2A] border border-[#444] rounded hover:bg-[#3A3A3A] hover:border-[#555] transition-all text-[#28F528]"
-      : "text-xs px-3 py-1.5 bg-[#2A2A2A] border border-[#444] rounded hover:bg-[#3A3A3A] hover:border-[#555] transition-all text-[#28F528]",
+      ? "text-sm px-4 py-2 bg-[#2A2A2A] border border-[#444] rounded hover:bg-[#3A3A3A] hover:border-[#555] transition-all text-[#FFA6C9]"
+      : "text-xs px-3 py-1.5 bg-[#2A2A2A] border border-[#444] rounded hover:bg-[#3A3A3A] hover:border-[#555] transition-all text-[#FFA6C9]",
     inputContainer: terminalMode
       ? "px-6 py-4 bg-[#1E1E1E]"
       : "px-4 py-3 bg-[#1E1E1E]",
@@ -116,8 +116,8 @@ const ChatWidget = () => {
       ? "flex-1 px-3 py-2 border-none bg-transparent text-white placeholder-gray-500 focus:outline-none focus:ring-0 disabled:cursor-not-allowed font-mono text-base"
       : "flex-1 px-2 py-1 border-none bg-transparent text-white placeholder-gray-500 focus:outline-none focus:ring-0 disabled:cursor-not-allowed font-mono text-sm",
     sendBtn: terminalMode
-      ? "px-5 py-2 bg-[#3A3A3A] text-[#28F528] font-medium hover:bg-[#4A4A4A] disabled:bg-[#2A2A2A] disabled:text-gray-600 disabled:cursor-not-allowed transition-colors rounded text-base"
-      : "px-4 py-1.5 bg-[#3A3A3A] text-[#28F528] font-medium hover:bg-[#4A4A4A] disabled:bg-[#2A2A2A] disabled:text-gray-600 disabled:cursor-not-allowed transition-colors rounded text-sm",
+      ? "px-5 py-2 bg-[#3A3A3A] text-[#FFA6C9] font-medium hover:bg-[#4A4A4A] disabled:bg-[#2A2A2A] disabled:text-gray-600 disabled:cursor-not-allowed transition-colors rounded text-base"
+      : "px-4 py-1.5 bg-[#3A3A3A] text-[#FFA6C9] font-medium hover:bg-[#4A4A4A] disabled:bg-[#2A2A2A] disabled:text-gray-600 disabled:cursor-not-allowed transition-colors rounded text-sm",
     fontSize: terminalMode ? "text-base" : "text-sm",
   };
 
@@ -149,7 +149,7 @@ const ChatWidget = () => {
           <div key={index} className={`${terminalStyles.fontSize} leading-relaxed`}>
             {message.role === "user" ? (
               <div className="text-white font-bold">
-                <span className="text-[#28F528]">blanca@cv</span>
+                <span className="text-[#FFA6C9]">blanca@cv</span>
                 <span className="text-white">:</span>
                 <span className="text-[#5C9DFF]">~</span>
                 <span className="text-white">$ {message.content}</span>
@@ -162,11 +162,11 @@ const ChatWidget = () => {
 
         {isLoading && (
           <div className={terminalStyles.fontSize}>
-            <span className="text-[#28F528]">blanca@cv</span>
+            <span className="text-[#FFA6C9]">blanca@cv</span>
             <span className="text-white">:</span>
             <span className="text-[#5C9DFF]">~</span>
             <span className="text-white">$ </span>
-            <span className="text-[#28F528] animate-pulse">_</span>
+            <span className="text-[#FFA6C9] animate-pulse">_</span>
           </div>
         )}
 
@@ -193,7 +193,7 @@ const ChatWidget = () => {
       <div className={terminalStyles.inputContainer}>
         <div className="flex gap-2 items-center">
           <div className={`flex items-center ${terminalStyles.fontSize}`}>
-            <span className="text-[#28F528]">blanca@cv</span>
+            <span className="text-[#FFA6C9]">blanca@cv</span>
             <span className="text-white">:</span>
             <span className="text-[#5C9DFF]">~</span>
             <span className="text-white">$</span>
