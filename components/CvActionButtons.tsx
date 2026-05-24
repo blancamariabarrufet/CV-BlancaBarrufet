@@ -32,11 +32,11 @@ const CvActionButtons = ({ email }: CvActionButtonsProps) => {
   };
 
   return (
-    <div className="flex flex-wrap gap-4 justify-center no-print">
+    <div className="no-print flex flex-wrap gap-2">
       <a
         href="/BlancaBarrufet-CV.pdf"
         download
-        className="px-6 py-3 bg-gray-900 text-white font-semibold rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-2"
+        className="btn-terminal-primary"
       >
         <svg
           className="w-5 h-5"
@@ -56,7 +56,7 @@ const CvActionButtons = ({ email }: CvActionButtonsProps) => {
       <a
         href="/#contact"
         onClick={handleContactClick}
-        className="px-6 py-3 bg-white text-gray-900 font-semibold rounded-lg border-2 border-gray-900 hover:bg-gray-50 transition-colors flex items-center gap-2 cursor-pointer"
+        className="btn-terminal cursor-pointer"
       >
         <svg
           className="w-5 h-5"

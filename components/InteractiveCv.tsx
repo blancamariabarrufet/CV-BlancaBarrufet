@@ -21,29 +21,26 @@ interface ProjectItem {
   end: string;
   bullets: string[];
   tags: string[];
+  url?: string;
 }
+
+const skillGroups = [
+  { label: "Technical Skills", items: cvData.skills.technical ?? [] },
+  { label: "Programming & Tools", items: cvData.skills.programmingTools ?? [] },
+  { label: "Personal Skills", items: cvData.skills.personal ?? [] },
+];
 
 const InteractiveCv = () => {
   const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
   const [expandedExperience, setExpandedExperience] = useState<string[]>([]);
   const [expandedProjects, setExpandedProjects] = useState<string[]>([]);
 
-  const allSkills = [
-    ...cvData.skills.languages,
-    ...cvData.skills.frameworks,
-    ...cvData.skills.tools,
-  ];
-
   const toggleExperience = (id: string) => {
-    setExpandedExperience((prev) =>
-      prev.includes(id) ? prev.filter((expId) => expId !== id) : [...prev, id]
-    );
+    setExpandedExperience((prev) => (prev.includes(id) ? prev.filter((expId) => expId !== id) : [...prev, id]));
   };
 
   const toggleProject = (id: string) => {
-    setExpandedProjects((prev) =>
-      prev.includes(id) ? prev.filter((projId) => projId !== id) : [...prev, id]
-    );
+    setExpandedProjects((prev) => (prev.includes(id) ? prev.filter((projId) => projId !== id) : [...prev, id]));
   };
 
   const handleSkillClick = (skill: string) => {
@@ -60,412 +57,260 @@ const InteractiveCv = () => {
     return project.tags.some((tag) => tag.toLowerCase() === selectedSkill.toLowerCase());
   };
 
-  const resetFilters = () => {
-    setSelectedSkill(null);
-  };
-
   return (
-    <div className="space-y-16">
-      {/* Skills Section */}
-      <section>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-3xl font-bold text-gray-900">Technical Skills</h2>
-          {selectedSkill && (
-            <button
-              onClick={resetFilters}
-              className="text-sm px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
-            >
-              Reset Filters
-            </button>
-          )}
-        </div>
-
-        {selectedSkill && (
-          <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-sm text-blue-900">
-              Filtering by: <strong>{selectedSkill}</strong>. Click on a skill to filter or click
-              &quot;Reset Filters&quot; to show all.
-            </p>
-          </div>
-        )}
-
-        <div className="space-y-6">
-          <div>
-            <h3 className="text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide">
-              Programming Languages
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {cvData.skills.languages.map((skill) => (
-                <button
-                  key={skill}
-                  onClick={() => handleSkillClick(skill)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                    selectedSkill === skill
-                      ? "bg-gray-900 text-white shadow-lg scale-105"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
-                >
-                  {skill}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide">
-              Frameworks & Libraries
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {cvData.skills.frameworks.map((skill) => (
-                <button
-                  key={skill}
-                  onClick={() => handleSkillClick(skill)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                    selectedSkill === skill
-                      ? "bg-gray-900 text-white shadow-lg scale-105"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
-                >
-                  {skill}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide">
-              Tools & Technologies
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {cvData.skills.tools.map((skill) => (
-                <button
-                  key={skill}
-                  onClick={() => handleSkillClick(skill)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                    selectedSkill === skill
-                      ? "bg-gray-900 text-white shadow-lg scale-105"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
-                >
-                  {skill}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide">
-              Methods & Practices
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {cvData.skills.methods.map((skill) => (
-                <span
-                  key={skill}
-                  className="px-4 py-2 bg-gray-50 text-gray-600 rounded-lg border border-gray-200"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Experience Timeline */}
-      <section>
-        <h2 className="text-3xl font-bold text-gray-900 mb-6">Professional Experience</h2>
+    <div className="space-y-7">
+      <SectionFrame id="section-4" code="04.stack" title="Skills" meta="n = 3">
         <div className="space-y-4">
-          {cvData.experience.map((exp) => {
-            const isExpanded = expandedExperience.includes(exp.id);
-            const isHighlighted = isExperienceHighlighted(exp);
+          {selectedSkill && (
+            <div className="module-muted flex flex-wrap items-center justify-between gap-3 px-3 py-2 text-xs">
+              <span>
+                filtering by <span className="text-[var(--accent)]">{selectedSkill}</span>
+              </span>
+              <button type="button" onClick={() => setSelectedSkill(null)} className="btn-terminal h-7 min-h-7 px-2 py-0 text-[10px]">
+                Reset
+              </button>
+            </div>
+          )}
+
+          {skillGroups.map((group) => (
+            <div key={group.label} className="grid gap-3 border-b border-dashed pb-4 last:border-b-0 last:pb-0 md:grid-cols-[150px_1fr]">
+              <div>
+                <h3 className="text-[10px] uppercase tracking-[0.16em] text-[var(--ink-muted)]">{group.label}</h3>
+                <p className="mt-1 text-[10px] text-[var(--ink-soft)]">n = {group.items.length}</p>
+              </div>
+              <ul className="flex flex-wrap gap-2">
+                {group.items.map((skill) => (
+                  <li key={skill} className="min-w-0">
+                    <button
+                      type="button"
+                      onClick={() => handleSkillClick(skill)}
+                      className={`tag ${selectedSkill === skill ? "tag-active" : "hover:border-[var(--accent)] hover:text-[var(--ink)]"}`}
+                    >
+                      {skill}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </SectionFrame>
+
+      <SectionFrame code="02.exp" title="Experience" meta={`n = ${cvData.experience.length}`}>
+        <div className="space-y-3">
+          {cvData.experience.map((experience, index) => {
+            const isExpanded = expandedExperience.includes(experience.id);
+            const isHighlighted = isExperienceHighlighted(experience);
 
             return (
-              <div
-                key={exp.id}
-                className={`border rounded-xl p-6 transition-all ${
-                  isHighlighted
-                    ? "border-gray-900 bg-gray-50 shadow-lg ring-2 ring-gray-900"
-                    : "border-gray-200 bg-white hover:shadow-md"
-                }`}
+              <article
+                key={experience.id}
+                className={`module-muted print-friendly transition-colors ${isHighlighted ? "border-[var(--accent)] bg-[var(--accent-soft)]" : ""}`}
               >
-                <div
-                  className="flex items-start justify-between cursor-pointer"
-                  onClick={() => toggleExperience(exp.id)}
+                <button
+                  type="button"
+                  onClick={() => toggleExperience(experience.id)}
+                  className="grid w-full gap-4 p-4 text-left md:grid-cols-[96px_1fr_auto]"
+                  aria-expanded={isExpanded}
                 >
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900">{exp.title}</h3>
-                        <p className="text-gray-600 font-medium">{exp.company}</p>
-                      </div>
-                      <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full whitespace-nowrap ml-4">
-                        {exp.start} - {exp.end}
-                      </span>
-                    </div>
-
-                    {isExpanded && (
-                      <div className="mt-4 space-y-4 animate-fade-in">
-                        <ul className="space-y-2">
-                          {exp.bullets.map((bullet, idx) => (
-                            <li key={idx} className="text-gray-700 flex gap-2">
-                              <span className="text-gray-400 font-bold">•</span>
-                              <span>{bullet}</span>
-                            </li>
-                          ))}
-                        </ul>
-
-                        <div className="flex flex-wrap gap-2 pt-2">
-                          {exp.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className={`text-xs px-3 py-1 rounded-full font-medium ${
-                                selectedSkill?.toLowerCase() === tag.toLowerCase()
-                                  ? "bg-gray-900 text-white"
-                                  : "bg-gray-100 text-gray-700"
-                              }`}
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                  <div className="text-[10px] leading-relaxed text-[var(--ink-muted)]">
+                    <p>{experience.start}</p>
+                    <p>{experience.end}</p>
                   </div>
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="text-base font-semibold text-[var(--ink)]">{experience.title}</h3>
+                      <span className="text-[10px] text-[var(--ink-soft)]">[{String(index + 1).padStart(2, "0")}.01]</span>
+                    </div>
+                    <p className="mt-1 text-xs text-[var(--ink-muted)]">{experience.company}</p>
+                  </div>
+                  <span className="self-start text-[10px] uppercase text-[var(--accent)]">{isExpanded ? "collapse" : "expand"}</span>
+                </button>
 
-                  <button
-                    className="ml-4 text-gray-400 hover:text-gray-600 transition-transform"
-                    aria-label={isExpanded ? "Collapse" : "Expand"}
-                  >
-                    <svg
-                      className={`w-6 h-6 transition-transform ${
-                        isExpanded ? "rotate-180" : ""
-                      }`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+                {isExpanded && (
+                  <div className="animate-fade-in border-t border-dashed px-4 pb-4 pt-3 md:ml-28">
+                    <ul className="space-y-2 text-xs leading-relaxed text-[var(--ink-muted)]">
+                      {experience.bullets.map((bullet) => (
+                        <li key={bullet} className="flex gap-2">
+                          <span className="text-[var(--accent)]">&gt;</span>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {experience.tags.map((tag) => (
+                        <span key={tag} className={`tag ${selectedSkill?.toLowerCase() === tag.toLowerCase() ? "tag-active" : ""}`}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </article>
             );
           })}
         </div>
-      </section>
+      </SectionFrame>
 
-      {/* Portfolio Section */}
       {cvData.projects.length > 0 && (
-        <section>
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">Portfolio</h2>
-          <div className="space-y-4">
-            {cvData.projects.map((project) => {
+        <SectionFrame code="03.work" title="Selected Work" meta={`n = ${cvData.projects.length}`}>
+          <div className="grid gap-3 lg:grid-cols-2">
+            {cvData.projects.map((project, index) => {
               const isExpanded = expandedProjects.includes(project.id);
               const isHighlighted = isProjectHighlighted(project);
 
               return (
-                <div
+                <article
                   key={project.id}
-                  className={`border rounded-xl p-6 transition-all ${
-                    isHighlighted
-                      ? "border-gray-900 bg-gray-50 shadow-lg ring-2 ring-gray-900"
-                      : "border-gray-200 bg-white hover:shadow-md"
-                  }`}
+                  className={`module-muted flex flex-col transition-colors ${isHighlighted ? "border-[var(--accent)] bg-[var(--accent-soft)]" : ""}`}
                 >
-                  <div
-                    className="flex items-start justify-between cursor-pointer"
-                    onClick={() => toggleProject(project.id)}
-                  >
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between mb-2">
-                        <div>
-                          <h3 className="text-xl font-bold text-gray-900">{project.name}</h3>
-                          <p className="text-gray-600 font-medium">{project.type}</p>
-                        </div>
-                        <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full whitespace-nowrap ml-4">
-                          {project.start} - {project.end}
-                        </span>
+                  <button type="button" onClick={() => toggleProject(project.id)} className="flex flex-1 flex-col p-4 text-left" aria-expanded={isExpanded}>
+                    <div className="mb-4 flex items-start justify-between gap-3">
+                      <span className="text-[10px] text-[var(--accent)]">P-{String(index + 1).padStart(2, "0")}</span>
+                      <span className="text-[10px] text-[var(--ink-muted)]">{project.type}</span>
+                    </div>
+                    <h3 className="text-sm font-semibold text-[var(--ink)]">{project.name}</h3>
+                    <p className="mt-1 text-[10px] uppercase tracking-[0.1em] text-[var(--ink-soft)]">
+                      {project.start} / {project.end}
+                    </p>
+                    <p className="mt-3 text-xs leading-relaxed text-[var(--ink-muted)]">{project.bullets[0]}</p>
+                    <span className="mt-4 text-[10px] uppercase text-[var(--accent)]">{isExpanded ? "collapse" : "details"}</span>
+                  </button>
+
+                  {isExpanded && (
+                    <div className="animate-fade-in border-t border-dashed p-4">
+                      <ul className="space-y-2 text-xs leading-relaxed text-[var(--ink-muted)]">
+                        {project.bullets.map((bullet) => (
+                          <li key={bullet} className="flex gap-2">
+                            <span className="text-[var(--accent)]">&gt;</span>
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {project.tags.map((tag) => (
+                          <span key={tag} className={`tag ${selectedSkill?.toLowerCase() === tag.toLowerCase() ? "tag-active" : ""}`}>
+                            {tag}
+                          </span>
+                        ))}
                       </div>
-
-                      {isExpanded && (
-                        <div className="mt-4 space-y-4 animate-fade-in">
-                          <ul className="space-y-2">
-                            {project.bullets.map((bullet, idx) => (
-                              <li key={idx} className="text-gray-700 flex gap-2">
-                                <span className="text-gray-400 font-bold">•</span>
-                                <span>{bullet}</span>
-                              </li>
-                            ))}
-                          </ul>
-
-                          <div className="flex flex-wrap gap-2 pt-2">
-                            {project.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className={`text-xs px-3 py-1 rounded-full font-medium ${
-                                  selectedSkill?.toLowerCase() === tag.toLowerCase()
-                                    ? "bg-gray-900 text-white"
-                                    : "bg-gray-100 text-gray-700"
-                                }`}
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
+                      {project.url && (
+                        <a
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-4 inline-flex text-[10px] uppercase tracking-[0.12em] text-[var(--accent)] underline"
+                        >
+                          {project.url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                        </a>
                       )}
                     </div>
-
-                    <button
-                      className="ml-4 text-gray-400 hover:text-gray-600 transition-transform"
-                      aria-label={isExpanded ? "Collapse" : "Expand"}
-                    >
-                      <svg
-                        className={`w-6 h-6 transition-transform ${
-                          isExpanded ? "rotate-180" : ""
-                        }`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
+                  )}
+                </article>
               );
             })}
           </div>
-        </section>
+        </SectionFrame>
       )}
 
-      {/* Education */}
-      <section>
-        <h2 className="text-3xl font-bold text-gray-900 mb-6">Education</h2>
-        <div className="space-y-4">
-          {cvData.education.map((edu) => (
-            <div
-              key={edu.id}
-              className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow print-friendly"
-            >
-              <div className="flex justify-between items-start mb-3">
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900">{edu.program}</h3>
-                  <p className="text-gray-600 font-medium">{edu.school}</p>
-                </div>
-                <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full whitespace-nowrap">
-                  {edu.start} - {edu.end}
-                </span>
-              </div>
-              <p className="text-gray-700 mb-3">{edu.description}</p>
-              {edu.highlights && edu.highlights.length > 0 && (
-                <ul className="space-y-1">
-                  {edu.highlights.map((highlight, idx) => (
-                    <li key={idx} className="text-gray-600 text-sm flex gap-2">
-                      <span className="text-gray-400">•</span>
-                      <span>{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Certifications & Languages Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Certifications */}
-        <section>
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">Certifications</h2>
+      <div className="grid gap-7 lg:grid-cols-[1fr_0.78fr]">
+        <SectionFrame code="05.edu" title="Education">
           <div className="space-y-3">
-            {cvData.certifications.map((cert) => (
-              <div
-                key={cert.id}
-                className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
-              >
-                <h3 className="font-bold text-gray-900">{cert.name}</h3>
-                {cert.issuer && <p className="text-sm text-gray-600">{cert.issuer}</p>}
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {cert.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded"
-                    >
+            {cvData.education.map((education) => (
+              <article key={education.id} className="module-muted p-4 print-friendly">
+                <div className="grid gap-3 md:grid-cols-[96px_1fr]">
+                  <div className="text-[10px] leading-relaxed text-[var(--ink-muted)]">
+                    <p>{education.start}</p>
+                    <p>{education.end}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-[var(--ink)]">{education.program}</h3>
+                    <p className="mt-1 text-xs text-[var(--ink-muted)]">{education.school}</p>
+                    <p className="mt-3 text-xs leading-relaxed text-[var(--ink-muted)]">{education.description}</p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </SectionFrame>
+
+        <SectionFrame code="06.certs" title="Certifications" meta={`n = ${cvData.certifications.length}`}>
+          <div className="space-y-3">
+            {cvData.certifications.map((certification) => (
+              <article key={certification.id} className="module-muted p-4">
+                <h3 className="text-sm font-semibold text-[var(--ink)]">{certification.name}</h3>
+                {certification.issuer && <p className="mt-1 text-xs text-[var(--ink-muted)]">{certification.issuer}</p>}
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {certification.tags.map((tag) => (
+                    <span key={tag} className="tag">
                       {tag}
                     </span>
                   ))}
                 </div>
-              </div>
+              </article>
             ))}
           </div>
-        </section>
-
-        {/* Languages */}
-        <section>
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">Languages</h2>
-          <div className="space-y-3">
-            {cvData.languages.map((lang, idx) => (
-              <div
-                key={idx}
-                className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
-              >
-                <div className="flex justify-between items-center">
-                  <h3 className="font-bold text-gray-900">{lang.language}</h3>
-                  <span className="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
-                    {lang.proficiency}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        </SectionFrame>
       </div>
 
-      {/* Awards */}
-      <section>
-        <h2 className="text-3xl font-bold text-gray-900 mb-6">Awards & Recognition</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {cvData.awards.map((award) => (
-            <div
-              key={award.id}
-              className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl p-6 hover:shadow-xl transition-shadow"
-            >
-              <h3 className="font-bold text-lg mb-2">{award.name}</h3>
-              <p className="text-gray-300 text-sm">{award.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <div className="grid gap-7 lg:grid-cols-[0.38fr_1.62fr]">
+        <SectionFrame code="07.lang" title="Languages">
+          <div className="space-y-2">
+            {cvData.languages.map((language) => (
+              <div key={language.language} className="flex items-center justify-between gap-4 border-b border-dashed py-2 text-xs last:border-b-0">
+                <span className="text-[var(--ink)]">{language.language}</span>
+                <span className="text-right text-[var(--ink-muted)]">{language.proficiency}</span>
+              </div>
+            ))}
+          </div>
+        </SectionFrame>
 
-      {/* Extracurricular */}
-      <section>
-        <h2 className="text-3xl font-bold text-gray-900 mb-6">Extracurricular Activities</h2>
-        <div className="space-y-4">
-          {cvData.extracurricular.map((activity) => (
-            <div
-              key={activity.id}
-              className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow"
-            >
-              <h3 className="font-bold text-lg text-gray-900 mb-1">{activity.name}</h3>
-              <p className="text-sm text-gray-600 mb-2">{activity.organization}</p>
-              <p className="text-gray-700">{activity.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+        <SectionFrame code="08.awards" title="Awards & Activities" meta={`n = ${cvData.awards.length + cvData.extracurricular.length}`}>
+          <div className="space-y-3">
+            {[
+              ...cvData.awards.map((item) => ({ ...item, organization: "" })),
+              ...cvData.extracurricular,
+            ].map((item) => (
+              <article key={item.id} className="text-xs leading-relaxed">
+                <h3 className="text-sm font-semibold text-[var(--ink)]">{item.name}</h3>
+                {item.organization && <p className="text-[10px] uppercase tracking-[0.08em] text-[var(--accent)]">{item.organization}</p>}
+                <p className="mt-1 text-[var(--ink-muted)]">{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </SectionFrame>
+      </div>
     </div>
   );
 };
+
+function SectionFrame({
+  id,
+  code,
+  title,
+  meta,
+  children,
+}: {
+  id?: string;
+  code: string;
+  title: string;
+  meta?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id} className="module scroll-mt-24">
+      <div className="module-header">
+        <div className="flex items-center gap-2">
+          <span className="status-dot" aria-hidden />
+          <span>{code}</span>
+          <span className="hidden text-[var(--ink-soft)] sm:inline">|</span>
+          <span className="hidden sm:inline">{title}</span>
+        </div>
+        {meta && <span>{meta}</span>}
+      </div>
+      <div className="p-4 sm:p-5">{children}</div>
+    </section>
+  );
+}
 
 export default InteractiveCv;

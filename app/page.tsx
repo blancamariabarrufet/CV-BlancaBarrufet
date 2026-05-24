@@ -1,217 +1,161 @@
 import ChatWidget from "@/components/ChatWidget";
 import ContactForm from "@/components/ContactForm";
+import CvActionButtons from "@/components/CvActionButtons";
+import InteractiveCv from "@/components/InteractiveCv";
 import cvData from "@/data/cv.json";
-import Link from "next/link";
 
 export default function Home() {
+  const skillCount =
+    cvData.skills.languages.length + cvData.skills.frameworks.length + cvData.skills.tools.length + cvData.skills.methods.length;
+
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-white">
-      {/* Hero Section with Chatbot - Above the Fold */}
-      <section className="min-h-screen flex items-center justify-center px-4 py-20">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Hero Text */}
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-                  {cvData.profile.name}
+    <div className="dossier-shell">
+      <div className="dossier-page space-y-7">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b pb-3 text-[10px] uppercase tracking-[0.14em] text-[var(--ink-muted)]">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="status-dot status-dot-ok rounded-full" aria-hidden />
+            <span>system_online</span>
+            <span className="hidden h-4 w-px bg-[var(--outline-variant)] sm:inline-block" aria-hidden />
+            <span>blanca.barrufet</span>
+            <span>2026.05</span>
+            <span>build 04.cv</span>
+          </div>
+          <div className="flex items-center gap-2 text-[var(--accent)]">
+            <span className="status-dot rounded-full" aria-hidden />
+            <span>recording</span>
+          </div>
+        </div>
+
+        <section className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.31fr)]">
+          <div className="module">
+            <div className="module-header">
+              <div className="flex items-center gap-2">
+                <span className="status-dot" aria-hidden />
+                <span>00.id</span>
+                <span>|</span>
+                <span>Identity</span>
+              </div>
+              <span>primary</span>
+            </div>
+
+            <div className="grid gap-5 p-5 md:grid-cols-[1fr_154px]">
+              <div>
+                <p className="mb-3 text-[10px] uppercase tracking-[0.12em] text-[var(--ink-muted)]">$ whoami</p>
+                <h1 className="text-[clamp(2.4rem,7vw,5.4rem)] font-semibold leading-[0.92] tracking-[-0.04em] text-[var(--ink)]">
+                  Blanca M Barrufet
                 </h1>
-                <p className="text-2xl md:text-3xl text-gray-700 font-medium">
-                  {cvData.profile.headline}
+                <div className="mt-3 flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.1em]">
+                  <span className="tag-active border px-2 py-1">AI and Data Engineer</span>
+                  <span className="text-[var(--ink-muted)]">/ Barcelona</span>
+                </div>
+                <p className="mt-5 max-w-[66ch] text-sm leading-relaxed text-[var(--ink-muted)]">
+                  {cvData.summary[1]} {cvData.summary[2]}
                 </p>
-                <p className="text-lg text-gray-600">{cvData.profile.location}</p>
-              </div>
-
-              <div className="space-y-3 pt-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-gray-900 rounded-full mt-2"></div>
-                  <p className="text-gray-700 text-lg">
-                    Developing enterprise AI chatbots with RAG architectures
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-gray-900 rounded-full mt-2"></div>
-                  <p className="text-gray-700 text-lg">
-                    Intern Programming in LangGraph, LlamaIndex, and semantic search optimization
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-gray-900 rounded-full mt-2"></div>
-                  <p className="text-gray-700 text-lg">
-                    Teaching mathematics in AI degree program
-                  </p>
+                <div className="mt-5">
+                  <CvActionButtons email={cvData.profile.email} />
                 </div>
               </div>
 
-              <div className="pt-6">
-                <a
-                  href="#cv-section"
-                  className="inline-flex items-center gap-2 text-gray-900 font-semibold hover:gap-3 transition-all group"
-                >
-                  <span>Scroll to see the complete CV</span>
-                  <svg
-                    className="w-5 h-5 group-hover:translate-y-1 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                    />
-                  </svg>
-                </a>
+              <div className="module-muted flex min-h-[210px] flex-col items-center justify-between p-4">
+                <span className="self-start text-[10px] text-[var(--ink-muted)]">portrait.svg</span>
+                <div className="relative h-28 w-28">
+                  <div className="absolute left-1/2 top-3 h-14 w-14 -translate-x-1/2 rounded-full border border-dashed border-[var(--outline-strong)]" />
+                  <div className="absolute left-1/2 top-9 h-2 w-2 -translate-x-1/2 rounded-full bg-[var(--accent)]" />
+                  <div className="absolute bottom-2 left-1/2 h-14 w-24 -translate-x-1/2 rounded-t-full border border-dashed border-[var(--outline-strong)] border-b-0" />
+                </div>
+                <span className="self-end text-[10px] text-[var(--ink-muted)]">180*220</span>
               </div>
-            </div>
-
-            {/* Right: Chatbot Widget */}
-            <div className="flex justify-center lg:justify-end">
-              <ChatWidget />
             </div>
           </div>
+
+          <div className="module">
+            <div className="module-header">
+              <div className="flex items-center gap-2">
+                <span className="status-dot" aria-hidden />
+                <span>00.meta</span>
+                <span>|</span>
+                <span>Meta</span>
+              </div>
+            </div>
+            <div className="space-y-3 p-5 text-xs">
+              <MetaRow label="name" value={cvData.profile.name} />
+              <MetaRow label="location" value={cvData.profile.location} />
+              <MetaRow label="email" value={cvData.profile.email} href={`mailto:${cvData.profile.email}`} />
+              <MetaRow label="web" value="blancabarrufet.me" />
+              <MetaRow label="status" value="open - advisory - roles" />
+              <MetaRow label="ts" value="2026-05-23T14:00:00Z" />
+              <div className="module-muted mt-4 p-3 text-[11px] leading-relaxed">
+                <p>
+                  <span className="text-[var(--accent)]">~/blanca</span> $ cat about.md
+                </p>
+                <p># builds retrieval systems</p>
+                <p># currently @ connecthink</p>
+                <p>
+                  <span className="text-[var(--accent)]">~/blanca</span> $
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <ChatWidget />
+
+        <div className="grid gap-7 lg:grid-cols-4">
+          <StatBlock code="exp" value={cvData.experience.length} label="roles" />
+          <StatBlock code="work" value={cvData.projects.length} label="projects" />
+          <StatBlock code="stack" value={skillCount} label="signals" />
+          <StatBlock code="lang" value={cvData.languages.length} label="languages" />
         </div>
-      </section>
 
-      {/* CV Preview Section */}
-      <section id="cv-section" className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 max-w-3xl mx-auto leading-tight">
-              Explore my experience, skills, and achievements in an interactive format
-            </h1>
-          </div>
+        <InteractiveCv />
 
-          {/* Quick Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 max-w-5xl mx-auto mb-12">
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl p-6 text-center">
-              <div className="text-3xl font-bold mb-2">{cvData.experience.length}</div>
-              <div className="text-gray-300">Positions</div>
-            </div>
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl p-6 text-center">
-              <div className="text-3xl font-bold mb-2">{cvData.projects.length}</div>
-              <div className="text-gray-300">Projects</div>
-            </div>
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl p-6 text-center">
-              <div className="text-3xl font-bold mb-2">
-                {cvData.skills.languages.length + cvData.skills.frameworks.length}
-              </div>
-              <div className="text-gray-300">Technologies</div>
-            </div>
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl p-6 text-center">
-              <div className="text-3xl font-bold mb-2">{cvData.certifications.length}</div>
-              <div className="text-gray-300">Certifications</div>
-            </div>
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl p-6 text-center">
-              <div className="text-3xl font-bold mb-2">{cvData.languages.length}</div>
-              <div className="text-gray-300">Languages</div>
+        <section id="contact" className="module scroll-mt-24">
+          <div className="module-header">
+            <div className="flex items-center gap-2">
+              <span className="status-dot" aria-hidden />
+              <span>09.mail</span>
+              <span>|</span>
+              <span>Contact</span>
             </div>
           </div>
-
-          {/* Experience Preview */}
-          <div className="max-w-4xl mx-auto space-y-6 mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Professional Experience</h2>
-            {cvData.experience.map((exp) => (
-              <div
-                key={exp.id}
-                className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow"
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900">{exp.title}</h3>
-                    <p className="text-gray-600">{exp.company}</p>
-                  </div>
-                  <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-                    {exp.start} - {exp.end}
-                  </span>
-                </div>
-                <ul className="space-y-2">
-                  {exp.bullets.map((bullet, idx) => (
-                    <li key={idx} className="text-gray-700 flex gap-2">
-                      <span className="text-gray-400">•</span>
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {exp.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-3 py-1 bg-gray-100 text-gray-700 rounded-full"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Portfolio Section */}
-          {cvData.projects.length > 0 && (
-            <div className="max-w-4xl mx-auto space-y-6">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Portfolio</h2>
-              {cvData.projects.map((project) => (
-                <div
-                  key={project.id}
-                  className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow"
-                >
-                  <div className="flex justify-between items-start mb-3">
-                    <div>
-                      <h3 className="text-xl font-bold text-gray-900">{project.name}</h3>
-                      <p className="text-gray-600">{project.type}</p>
-                    </div>
-                    <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-                      {project.start} - {project.end}
-                    </span>
-                  </div>
-                  <ul className="space-y-2">
-                    {project.bullets.map((bullet, idx) => (
-                      <li key={idx} className="text-gray-700 flex gap-2">
-                        <span className="text-gray-400">•</span>
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-xs px-3 py-1 bg-gray-100 text-gray-700 rounded-full"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
+          <div className="grid gap-6 p-5 lg:grid-cols-[0.45fr_1fr]">
+            <div>
+              <h2 className="text-xl font-semibold text-[var(--ink)]">Send a signal.</h2>
+              <p className="mt-3 max-w-[42ch] text-sm leading-relaxed text-[var(--ink-muted)]">
+                Use the form for roles, internships, collaborations, and AI retrieval projects.
+              </p>
             </div>
-          )}
-
-          <div className="text-center mt-12">
-            <Link
-              href="/cv"
-              className="inline-block px-8 py-4 bg-gray-900 text-white font-semibold rounded-lg hover:bg-gray-800 transition-colors"
-            >
-              View Full CV
-            </Link>
+            <ContactForm />
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
+    </div>
+  );
+}
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Get In Touch</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Interested in collaborating or learning more about my work? Fill out the form below and I'll get back to you soon!
-            </p>
-          </div>
-          <ContactForm />
-        </div>
-      </section>
+function MetaRow({ label, value, href }: { label: string; value: string; href?: string }) {
+  const content = href ? (
+    <a href={href} className="break-all text-[var(--ink)] underline hover:text-[var(--accent)]">
+      {value}
+    </a>
+  ) : (
+    <span className="break-words text-[var(--ink)]">{value}</span>
+  );
+
+  return (
+    <div className="grid grid-cols-[92px_1fr] gap-3">
+      <span className="text-[var(--ink-muted)]">{label}</span>
+      {content}
+    </div>
+  );
+}
+
+function StatBlock({ code, value, label }: { code: string; value: number; label: string }) {
+  return (
+    <div className="module p-4">
+      <p className="text-[10px] uppercase tracking-[0.14em] text-[var(--accent)]">{code}</p>
+      <p className="mt-3 text-3xl font-semibold leading-none text-[var(--ink)]">{value}</p>
+      <p className="mt-2 text-[10px] uppercase tracking-[0.14em] text-[var(--ink-muted)]">{label}</p>
     </div>
   );
 }

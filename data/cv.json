@@ -4,7 +4,7 @@
     "headline": "Computer Engineering and Business Student",
     "location": "Barcelona, Spain",
     "email": "blancamariabarrufet@gmail.com",
-    "website": "www.reallygreatsite.com",
+    "website": "",
     "linkedin": "",
     "github": ""
   },
@@ -17,13 +17,42 @@
     "languages": ["Python", "Java", "C/C++", "SQL", "HTML", "ASSEMBLY", "MATLAB", "LaTeX"],
     "frameworks": ["LangGraph", "LlamaIndex"],
     "tools": ["pgvector", "Office", "Adobe"],
-    "methods": ["OOP", "Scrum Methodology", "Problem-solving", "Communication", "Team-work"]
+    "methods": ["OOP", "Scrum Methodology", "Problem-solving", "Communication", "Team-work"],
+    "technical": [
+      "RAG",
+      "GraphRAG",
+      "LangChain",
+      "LlamaIndex",
+      "LLM Interaction",
+      "ETL Pipelines",
+      "Embeddings",
+      "Vector Databases",
+      "SQL",
+      "Data Modeling"
+    ],
+    "programmingTools": [
+      "Python",
+      "C/C++",
+      "REST APIs",
+      "API Development",
+      "Cloud (AWS / Azure)",
+      "Git",
+      "Docker"
+    ],
+    "personal": [
+      "Problem-solving",
+      "Communication",
+      "Team-work",
+      "Scrum",
+      "Analytical thinking",
+      "Adaptability"
+    ]
   },
   "experience": [
     {
       "id": "exp-1",
       "company": "Connecthink Innovation, S.L.",
-      "title": "AI Chatbot Developer",
+      "title": "AI and Data Engineer",
       "start": "November 2025",
       "end": "Present",
       "bullets": [
@@ -65,7 +94,7 @@
   "extracurricular": [
     {
       "id": "extra-1",
-      "name": "Mad for Supercomputing",
+      "name": "Barcelona Supercomputing Center - Mad for Supercomputing",
       "organization": "Barcelona Supercomputing Center & Fundació Catalunya La Pedrera",
       "description": "Mad for supercomputing course for baccalaureate students interested in STEM, organized by the Barcelona Supercomputing Center and Fundació Catalunya La Pedrera. In this course I learned about the basics of supercomputing how do they work and how to use them."
     },
@@ -131,16 +160,18 @@
   "projects": [
     {
       "id": "proj-1",
-      "name": "Project Name 1",
+      "name": "Tu dia de blanco",
       "type": "Personal Project",
-      "start": "Month Year",
-      "end": "Month Year",
+      "start": "2025",
+      "end": "2026",
       "bullets": [
-        "Description of what you built and the problem it solved",
-        "Technologies and methodologies used in the implementation",
-        "Key achievements or outcomes of the project"
+        "A polished wedding web app that helps couples create elegant digital wedding experiences, collect guest information, manage event details, use AI functionality for easier management, and offer a guided inquiry flow for new clients.",
+        "Designed and built a wedding-focused platform with public landing pages, product pages, inquiry forms, authentication, registration flows, and private management screens.",
+        "Implemented Supabase-backed data storage, auth flows, Notion submission capture, Resend email templates, and structured registration data for guests and couples.",
+        "Created a warm, editorial interface tailored to engaged couples, balancing emotional presentation with practical tools and AI-assisted functionality for managing wedding-related workflows."
       ],
-      "tags": ["Python", "React", "AI", "Web Development"]
+      "tags": ["Next.js", "React", "TypeScript", "Supabase", "Auth", "Resend", "Notion API", "Tailwind CSS", "Product Design", "Web App", "AI"],
+      "url": "https://www.tudiadeblanco.com/"
     },
     {
       "id": "proj-2",

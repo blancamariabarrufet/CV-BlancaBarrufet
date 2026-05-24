@@ -1,54 +1,41 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { useTerminalMode, Message } from "@/components/TerminalModeProvider";
+import { useEffect, useRef, useState } from "react";
+import { Message, useTerminalMode } from "@/components/TerminalModeProvider";
 
 const quickActions = [
-  "Summarize my profile",
-  "Show skills",
-  "Highlight AI chatbot experience",
-  "Download CV",
+  "What does Blanca build at Connecthink?",
+  "Summarize her RAG experience.",
+  "Is she available for a Data Science internship?",
 ];
 
 const ChatWidget = () => {
   const { terminalMode, toggleTerminalMode, messages, setMessages, isLoading, setIsLoading } = useTerminalMode();
   const [input, setInput] = useState("");
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
-    if (messagesContainerRef.current) {
-      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
-    }
-  };
-
   useEffect(() => {
-    // Small delay to ensure DOM is updated before scrolling
     const timer = setTimeout(() => {
-      scrollToBottom();
-    }, 100);
+      if (messagesContainerRef.current) {
+        messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+      }
+    }, 80);
+
     return () => clearTimeout(timer);
   }, [messages]);
-
-  const handleQuickAction = (action: string) => {
-    handleSendMessage(action);
-  };
 
   const handleSendMessage = async (messageText?: string) => {
     const textToSend = messageText || input;
     if (!textToSend.trim()) return;
 
-    // Capture values before any state changes
     const messageToSend = textToSend.trim();
-    const shouldToggle = !terminalMode;
+    const shouldToggle = !terminalMode && messageText === undefined;
 
-    // Update UI state first
     const userMessage: Message = { role: "user", content: messageToSend };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
 
-    // Toggle terminal mode AFTER capturing message and updating state
     if (shouldToggle) {
       toggleTerminalMode();
     }
@@ -68,14 +55,14 @@ const ChatWidget = () => {
       const data = await response.json();
       const assistantMessage: Message = {
         role: "assistant",
-        content: data.reply || "I'm sorry, I couldn't process that request.",
+        content: data.reply || "I could not process that request.",
       };
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
       console.error("Chat error:", error);
       const errorMessage: Message = {
         role: "assistant",
-        content: "Sorry, there was an error processing your request. Please try again.",
+        content: "The chat service did not respond. Please try again.",
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
@@ -83,139 +70,153 @@ const ChatWidget = () => {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
       handleSendMessage();
     }
   };
 
-  // Terminal mode styles - Apple Terminal aesthetic (both modes now use terminal style)
-  const terminalStyles = {
-    container: terminalMode
-      ? "rounded-xl shadow-2xl overflow-hidden flex flex-col h-full w-full font-mono"
-      : "rounded-xl shadow-2xl overflow-hidden flex flex-col h-[600px] max-w-2xl w-full font-mono",
-    header: "bg-gradient-to-b from-[#E8E6E8] to-[#D4D2D4] px-4 py-2 border-b border-[#B8B6B8]",
-    headerText: "text-gray-500",
-    messages: terminalMode
-      ? "flex-1 overflow-y-auto p-6 space-y-2 scroll-smooth bg-[#1E1E1E]"
-      : "flex-1 overflow-y-auto p-4 space-y-1 scroll-smooth bg-[#1E1E1E]",
-    userMessage: "bg-transparent text-white",
-    assistantMessage: "bg-transparent text-white",
-    loadingDot: "bg-[#FFA6C9]",
-    quickActions: terminalMode
-      ? "px-6 py-3 bg-[#1E1E1E] border-t border-[#333]"
-      : "px-4 py-2 bg-[#1E1E1E] border-t border-[#333]",
-    quickActionBtn: terminalMode
-      ? "text-sm px-4 py-2 bg-[#2A2A2A] border border-[#444] rounded hover:bg-[#3A3A3A] hover:border-[#555] transition-all text-[#FFA6C9]"
-      : "text-xs px-3 py-1.5 bg-[#2A2A2A] border border-[#444] rounded hover:bg-[#3A3A3A] hover:border-[#555] transition-all text-[#FFA6C9]",
-    inputContainer: terminalMode
-      ? "px-6 py-4 bg-[#1E1E1E]"
-      : "px-4 py-3 bg-[#1E1E1E]",
-    input: terminalMode
-      ? "flex-1 px-3 py-2 border-none bg-transparent text-white placeholder-gray-500 focus:outline-none focus:ring-0 disabled:cursor-not-allowed font-mono text-base"
-      : "flex-1 px-2 py-1 border-none bg-transparent text-white placeholder-gray-500 focus:outline-none focus:ring-0 disabled:cursor-not-allowed font-mono text-sm",
-    sendBtn: terminalMode
-      ? "px-5 py-2 bg-[#3A3A3A] text-[#FFA6C9] font-medium hover:bg-[#4A4A4A] disabled:bg-[#2A2A2A] disabled:text-gray-600 disabled:cursor-not-allowed transition-colors rounded text-base"
-      : "px-4 py-1.5 bg-[#3A3A3A] text-[#FFA6C9] font-medium hover:bg-[#4A4A4A] disabled:bg-[#2A2A2A] disabled:text-gray-600 disabled:cursor-not-allowed transition-colors rounded text-sm",
-    fontSize: terminalMode ? "text-base" : "text-sm",
-  };
+  if (terminalMode) {
+    return (
+      <div className="module-dark flex h-full w-full flex-col overflow-hidden">
+        <div className="flex items-center border-b border-white/10 px-4 py-2.5">
+          <div className="flex items-center gap-2" aria-hidden>
+            <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+            <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
+            <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+          </div>
+          <div className="flex-1 text-center text-xs font-medium text-[var(--surface-low)]">
+            blanca@cv - bash - 80x24
+          </div>
+          <div className="w-[52px]" />
+        </div>
+
+        <div ref={messagesContainerRef} className="flex-1 space-y-2 overflow-y-auto bg-[var(--code)] p-5 text-sm leading-relaxed">
+          <p className="text-[var(--surface-highest)]">Last login: interactive_cv on ttys000</p>
+          {messages.map((message, index) => (
+            <div key={`${message.role}-${index}`}>
+              {message.role === "user" ? (
+                <p className="font-semibold text-[var(--surface-lowest)]">
+                  <span className="text-[var(--accent)]">blanca@cv</span>:<span className="text-[#f4a7bd]">~</span>$ {message.content}
+                </p>
+              ) : (
+                <p className="whitespace-pre-wrap text-[var(--surface-low)]">{message.content}</p>
+              )}
+            </div>
+          ))}
+          {isLoading && (
+            <p className="font-semibold text-[var(--surface-lowest)]">
+              <span className="text-[var(--accent)]">blanca@cv</span>:<span className="text-[#f4a7bd]">~</span>$ <span className="terminal-cursor">_</span>
+            </p>
+          )}
+        </div>
+
+        <div className="border-t border-white/10 bg-[var(--code)] p-4">
+          <div className="flex items-center gap-2">
+            <span className="shrink-0 text-sm font-semibold text-[var(--surface-lowest)]">
+              <span className="text-[var(--accent)]">blanca@cv</span>:<span className="text-[#f4a7bd]">~</span>$
+            </span>
+            <input
+              type="text"
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+              onKeyDown={handleKeyDown}
+              disabled={isLoading}
+              className="flex-1 border-0 bg-transparent text-sm text-[var(--surface-lowest)] outline-none placeholder:text-[var(--surface-highest)]"
+              aria-label="Chat input"
+            />
+            <button
+              type="button"
+              onClick={() => handleSendMessage()}
+              disabled={isLoading || !input.trim()}
+              className="border border-white/15 px-4 py-2 text-xs font-semibold uppercase text-[var(--accent)] transition-colors hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Run
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className={terminalStyles.container}>
-      {/* Header - macOS style for both modes */}
-      <div className={terminalStyles.header}>
-        <div className="flex items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-[#FF5F57] border border-[#E0443E]"></div>
-            <div className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]"></div>
-            <div className="w-3 h-3 rounded-full bg-[#28C840] border border-[#1AAB29]"></div>
-          </div>
-          <div className="flex-1 text-center">
-            <span className={`${terminalMode ? 'text-sm' : 'text-xs'} text-gray-700 font-medium`}>
-              blanca@cv — bash — {terminalMode ? '80x24' : '60x20'}
-            </span>
-          </div>
-          <div className="w-[52px]"></div>
-        </div>
+    <div className="module flex h-[360px] min-h-0 flex-col overflow-hidden">
+      <div className="module-header">
+        <span className="module-code">ask the cv</span>
       </div>
 
-      {/* Messages */}
-      <div ref={messagesContainerRef} className={terminalStyles.messages}>
-        <div className={`text-gray-400 ${terminalStyles.fontSize} mb-2`}>
-          Last login: {new Date().toLocaleString()} on ttys000
+      <div className="grid min-h-0 flex-1 grid-cols-1 md:grid-cols-[0.54fr_1fr]">
+        <div className="border-b p-4 md:border-b-0 md:border-r">
+          <h3 className="mb-2 text-base font-semibold text-[var(--ink)]">Interview the page.</h3>
+          <p className="max-w-[36ch] text-xs leading-relaxed text-[var(--ink-muted)]">
+            A small assistant grounded in this CV. Useful for recruiters skimming on a deadline.
+          </p>
+          <ul className="mt-5 space-y-1.5 text-[10px] uppercase tracking-[0.08em] text-[var(--ink-muted)]">
+            <li>- grounded on experience</li>
+            <li>- stack education languages</li>
+            <li>- awards and projects</li>
+          </ul>
         </div>
-        {messages.map((message, index) => (
-          <div key={index} className={`${terminalStyles.fontSize} leading-relaxed`}>
-            {message.role === "user" ? (
-              <div className="text-white font-bold">
-                <span className="text-[#FFA6C9]">blanca@cv</span>
-                <span className="text-white">:</span>
-                <span className="text-[#5C9DFF]">~</span>
-                <span className="text-white">$ {message.content}</span>
+
+        <div className="flex min-h-0 flex-col">
+          <div className="border-b bg-[var(--surface-low)] p-3">
+            <p className="mb-2 text-[10px] text-[var(--accent)]">&gt; Ask anything about Blanca's experience, stack or availability.</p>
+            <div className="flex flex-col gap-1.5">
+              {quickActions.map((action) => (
+                <button
+                  key={action}
+                  type="button"
+                  onClick={() => handleSendMessage(action)}
+                  disabled={isLoading}
+                  className="border border-dashed bg-[var(--surface-lowest)] px-2 py-1.5 text-left text-[10px] text-[var(--ink-muted)] transition-colors hover:border-[var(--accent)] hover:text-[var(--ink)] disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {action}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div ref={messagesContainerRef} className="min-h-0 flex-1 space-y-3 overflow-y-auto p-3 text-xs leading-relaxed">
+            {messages.map((message, index) => (
+              <div key={`${message.role}-${index}`} className={message.role === "user" ? "text-[var(--ink)]" : "text-[var(--ink-muted)]"}>
+                <span className="text-[var(--accent)]">{message.role === "user" ? "user" : "cv"}</span>
+                <span className="text-[var(--ink-soft)]"> $ </span>
+                <span className="whitespace-pre-wrap">{message.content}</span>
               </div>
-            ) : (
-              <div className="text-white whitespace-pre-wrap pl-0 py-1">{message.content}</div>
+            ))}
+            {isLoading && (
+              <p className="text-[var(--ink)]">
+                <span className="text-[var(--accent)]">cv</span>
+                <span className="text-[var(--ink-soft)]"> $ </span>
+                <span className="terminal-cursor">_</span>
+              </p>
             )}
           </div>
-        ))}
 
-        {isLoading && (
-          <div className={terminalStyles.fontSize}>
-            <span className="text-[#FFA6C9]">blanca@cv</span>
-            <span className="text-white">:</span>
-            <span className="text-[#5C9DFF]">~</span>
-            <span className="text-white">$ </span>
-            <span className="text-[#FFA6C9] animate-pulse">_</span>
+          <div className="border-t p-2">
+            <div className="flex items-center gap-2">
+              <span className="shrink-0 text-[10px] text-[var(--accent)]">&gt;</span>
+              <input
+                type="text"
+                value={input}
+                onChange={(event) => setInput(event.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="ask..."
+                disabled={isLoading}
+                className="min-w-0 flex-1 bg-transparent px-1 py-1 text-xs outline-none placeholder:text-[var(--ink-soft)]"
+                aria-label="Chat input"
+              />
+              <button
+                type="button"
+                onClick={() => handleSendMessage()}
+                disabled={isLoading || !input.trim()}
+                className="btn-terminal h-7 min-h-7 px-3 py-0 text-[10px] disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Send
+              </button>
+            </div>
           </div>
-        )}
-
-        <div ref={messagesEndRef} />
-      </div>
-
-      {/* Quick Actions */}
-      <div className={terminalStyles.quickActions}>
-        <div className="flex flex-wrap gap-2">
-          {quickActions.map((action) => (
-            <button
-              key={action}
-              onClick={() => handleQuickAction(action)}
-              className={terminalStyles.quickActionBtn}
-              disabled={isLoading}
-            >
-              {action}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Input */}
-      <div className={terminalStyles.inputContainer}>
-        <div className="flex gap-2 items-center">
-          <div className={`flex items-center ${terminalStyles.fontSize}`}>
-            <span className="text-[#FFA6C9]">blanca@cv</span>
-            <span className="text-white">:</span>
-            <span className="text-[#5C9DFF]">~</span>
-            <span className="text-white">$</span>
-          </div>
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder=""
-            disabled={isLoading}
-            className={terminalStyles.input}
-            aria-label="Chat input"
-          />
-          <button
-            onClick={() => handleSendMessage()}
-            disabled={isLoading || !input.trim()}
-            className={terminalStyles.sendBtn}
-            aria-label="Send message"
-          >
-            Run
-          </button>
         </div>
       </div>
     </div>

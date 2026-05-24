@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "@/components/ClientLayout";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
-  title: "Blanca M Barrufet Garbayo — AI Chatbots / Software Engineering",
-  description: "Computer Engineering and Business student specializing in AI chatbots, RAG architectures, and software development. Experience with LangGraph, LlamaIndex, and enterprise AI solutions.",
+  title: "Blanca M Barrufet Garbayo — AI and Data Engineering / Software Engineering",
+  description: "Computer Engineering and Business student specializing in AI and data engineering, RAG architectures, and software development. Experience with LangGraph, LlamaIndex, and enterprise AI solutions.",
   openGraph: {
-    title: "Blanca M Barrufet Garbayo — AI Chatbots / Software Engineering",
-    description: "Computer Engineering and Business student specializing in AI chatbots, RAG architectures, and software development.",
+    title: "Blanca M Barrufet Garbayo — AI and Data Engineering / Software Engineering",
+    description: "Computer Engineering and Business student specializing in AI and data engineering, RAG architectures, and software development.",
     type: "website",
   },
 };
@@ -22,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="antialiased">
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
