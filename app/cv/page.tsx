@@ -1,14 +1,188 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import cvPrintData from "@/data/cv-print.json";
 
-const sectionHeading =
-  "mt-4 mb-2 border-b border-black/80 pb-1 text-[14px] font-bold uppercase tracking-wide text-black";
+/**
+ * The /cv page is a content-driven, one-page printable résumé.
+ *
+ * IMPORTANT: To change the CV, edit `data/cv-print.json` (see `data/cv-print.schema.md`).
+ * This file only owns layout, styling, and the A4 / PDF print logic — keep content out of it.
+ */
+
+// ---- Content model (mirrors data/cv-print.json) ----------------------------
+
+type BulletItem = { lead?: string; text: string };
+type LabeledItem = { label: string; text: string };
+
+type EntryItem = {
+  title: string;
+  period?: string;
+  subtitle?: string;
+  bullets?: string[];
+  text?: string;
+};
+
+type Section =
+  | { kind: "tag-grid"; heading: string; tightTop?: boolean; items: string[] }
+  | { kind: "inline-list"; heading: string; tightTop?: boolean; items: string[] }
+  | { kind: "bullets"; heading: string; tightTop?: boolean; items: BulletItem[] }
+  | { kind: "labeled"; heading: string; tightTop?: boolean; items: LabeledItem[] }
+  | { kind: "entries"; heading: string; tightTop?: boolean; entries: EntryItem[] };
+
+type CvPrint = {
+  profile: { name: string; headline: string; contacts: string[] };
+  summary?: string;
+  sections: Section[];
+};
+
+const cv = cvPrintData as unknown as CvPrint;
+
+// ---- Shared class strings (unchanged from the original layout) -------------
+
+const sectionHeadingBase =
+  "mb-2 border-b border-black/80 pb-1 text-[14px] font-bold uppercase tracking-wide text-black";
 
 const bullet = "before:mr-1.5 before:content-['•']";
 
+function headingClass(tightTop?: boolean) {
+  return `${tightTop ? "!mt-3 " : "mt-4 "}${sectionHeadingBase}`;
+}
+
+// ---- Section renderers ------------------------------------------------------
+
+function SectionHeading({ section }: { section: Section }) {
+  return <h2 className={headingClass(section.tightTop)}>{section.heading}</h2>;
+}
+
+function TagGridSection({ section }: { section: Extract<Section, { kind: "tag-grid" }> }) {
+  return (
+    <>
+      <SectionHeading section={section} />
+      <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-[12.5px] text-neutral-900 sm:grid-cols-5">
+        {section.items.map((item) => (
+          <li key={item} className={bullet}>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+function InlineListSection({ section }: { section: Extract<Section, { kind: "inline-list" }> }) {
+  return (
+    <>
+      <SectionHeading section={section} />
+      <p
+        className="text-[12.5px] text-neutral-900"
+        style={{ textAlign: "justify", textAlignLast: "justify" }}
+      >
+        {section.items.join(" • ")}
+      </p>
+    </>
+  );
+}
+
+function BulletsSection({ section }: { section: Extract<Section, { kind: "bullets" }> }) {
+  return (
+    <>
+      <SectionHeading section={section} />
+      <ul className="space-y-0.5 text-[12.5px] leading-relaxed text-neutral-900">
+        {section.items.map((item, i) => (
+          <li key={i} className={bullet}>
+            {item.lead ? <span className="font-bold">{item.lead} </span> : null}
+            {item.text}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+function LabeledSection({ section }: { section: Extract<Section, { kind: "labeled" }> }) {
+  return (
+    <>
+      <SectionHeading section={section} />
+      <ul className="space-y-0.5 text-[12.5px] leading-relaxed text-neutral-900">
+        {section.items.map((item, i) => (
+          <li key={i} className={bullet}>
+            <span className="font-bold">{item.label}</span> {item.text}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+function EntriesSection({ section }: { section: Extract<Section, { kind: "entries" }> }) {
+  return (
+    <>
+      <SectionHeading section={section} />
+      <div className="space-y-2">
+        {section.entries.map((entry, i) => (
+          <div key={i}>
+            <div className="flex items-baseline justify-between gap-4">
+              <h3 className="text-[13.5px] font-bold text-black">{entry.title}</h3>
+              {entry.period ? (
+                <span className="whitespace-nowrap text-[12.5px] font-bold text-black">
+                  {entry.period}
+                </span>
+              ) : null}
+            </div>
+            {entry.subtitle ? (
+              <p className="text-[12.5px] text-neutral-900">{entry.subtitle}</p>
+            ) : null}
+            {entry.bullets && entry.bullets.length > 0 ? (
+              <ul className="mt-0.5 space-y-0.5 pl-4 text-[12.5px] leading-relaxed text-neutral-900">
+                {entry.bullets.map((b, j) => (
+                  <li key={j} className={bullet}>
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            {entry.text ? (
+              <p className="mt-0.5 pl-4 text-[12.5px] leading-relaxed text-neutral-900">
+                {entry.text}
+              </p>
+            ) : null}
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+function renderSection(section: Section, index: number) {
+  switch (section.kind) {
+    case "tag-grid":
+      return <TagGridSection key={index} section={section} />;
+    case "inline-list":
+      return <InlineListSection key={index} section={section} />;
+    case "bullets":
+      return <BulletsSection key={index} section={section} />;
+    case "labeled":
+      return <LabeledSection key={index} section={section} />;
+    case "entries":
+      return <EntriesSection key={index} section={section} />;
+    default:
+      return null;
+  }
+}
+
+// ---- Page -------------------------------------------------------------------
+
 export default function CvPage() {
   const [editing, setEditing] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("print") !== "1") return;
+
+    window.history.replaceState(null, "", "/cv");
+    window.setTimeout(() => window.print(), 250);
+  }, []);
 
   return (
     <div className="cv-root min-h-screen bg-neutral-200 py-8 print:min-h-0 print:bg-white print:py-0">
@@ -62,157 +236,26 @@ export default function CvPage() {
         {/* Header (div, not <header>, so it isn't hidden by the global print rule) */}
         <div className="text-center">
           <h1 className="text-[30px] font-bold uppercase leading-tight tracking-wide text-black">
-            Blanca M Barrufet Garbayo
+            {cv.profile.name}
           </h1>
           <p className="mt-1 text-[17px] uppercase tracking-wide text-neutral-700">
-            AI and Data Engineer
+            {cv.profile.headline}
           </p>
           <p className="mt-2.5 text-[12.5px] text-neutral-800">
-            Barcelona&nbsp;|&nbsp; blancamariabarrufet@gmail.com&nbsp;|&nbsp; www.blancabarrufet.me
+            {cv.profile.contacts.join(" |  ")}
           </p>
           <hr className="mt-2.5 border-t border-black/80" />
         </div>
 
         {/* Summary */}
-        <p className="mt-3 text-justify text-[12.5px] leading-relaxed text-neutral-900">
-          AI and Data Engineer with experience developing enterprise AI chatbots, RAG architectures,
-          and semantic search using different technologies. Passionate about building scalable AI
-          solutions, solving complex problems, and continuously learning in fast-paced and
-          international environments.
-        </p>
+        {cv.summary ? (
+          <p className="mt-3 text-justify text-[12.5px] leading-relaxed text-neutral-900">
+            {cv.summary}
+          </p>
+        ) : null}
 
-        {/* Technical Skills */}
-        <h2 className={sectionHeading}>Technical Skills</h2>
-        <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-[12.5px] text-neutral-900 sm:grid-cols-5">
-          {[
-            "RAG",
-            "GraphRAG",
-            "LangChain",
-            "LlamaIndex",
-            "LLM Interaction",
-            "ETL Pipelines",
-            "Embeddings",
-            "Vector Databases",
-            "SQL",
-            "Data Modeling",
-          ].map((skill) => (
-            <li key={skill} className={bullet}>
-              {skill}
-            </li>
-          ))}
-        </ul>
-
-        {/* Programming & Tools */}
-        <h2 className={sectionHeading}>Programming &amp; Tools</h2>
-        <p className="text-[12.5px] text-neutral-900">
-          Python / JAVA • C/C++ • REST APIs • API Development • Cloud AWS • Git • Docker
-        </p>
-
-        {/* Personal Skills */}
-        <h2 className={`${sectionHeading} !mt-3`}>Personal Skills</h2>
-        <p className="text-[12.5px] text-neutral-900">
-          Problem-solving • Communication • Team-work • Scrum • Analytical thinking • Adaptability
-        </p>
-
-        {/* Extra-curricular */}
-        <h2 className={sectionHeading}>Extra-curricular</h2>
-        <ul className="text-[12.5px] leading-relaxed text-neutral-900">
-          <li className={bullet}>
-            <span className="font-bold">Barcelona Supercomputing Center -</span> Mad for
-            supercomputing is a course for baccalaureate students interested in STEM, organized by
-            the Barcelona Supercomputing Center and Fundació Catalunya La Pedrera.
-          </li>
-        </ul>
-
-        {/* Professional Experience */}
-        <h2 className={sectionHeading}>Professional Experience</h2>
-        <div className="space-y-2">
-          <div>
-            <div className="flex items-baseline justify-between gap-4">
-              <h3 className="text-[13.5px] font-bold text-black">Connecthink Innovation, S.L.</h3>
-              <span className="whitespace-nowrap text-[12.5px] font-bold text-black">
-                November 2025 - Present
-              </span>
-            </div>
-            <ul className="mt-0.5 space-y-0.5 pl-4 text-[12.5px] leading-relaxed text-neutral-900">
-              <li className={bullet}>
-                Development of enterprise AI chatbots for querying and managing large-scale datasets.
-              </li>
-              <li className={bullet}>
-                Implementation of RAG architectures using LlamaIndex, pgvector, LangGraph, and
-                GraphRAG.
-              </li>
-              <li className={bullet}>
-                Integration with internal systems and optimization of semantic search and response
-                quality.
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <div className="flex items-baseline justify-between gap-4">
-              <h3 className="text-[13.5px] font-bold text-black">La Salle - URL</h3>
-              <span className="whitespace-nowrap text-[12.5px] font-bold text-black">
-                September 2024 - January 2026
-              </span>
-            </div>
-            <p className="mt-0.5 pl-4 text-[12.5px] leading-relaxed text-neutral-900">
-              University collaborator as a mathematics, algebra, calculus and Mathematical
-              Fundamentals teacher assistant in the Artificial Intelligence degree
-            </p>
-          </div>
-        </div>
-
-        {/* Education */}
-        <h2 className={sectionHeading}>Education</h2>
-        <div className="space-y-2">
-          <div>
-            <div className="flex items-baseline justify-between gap-4">
-              <h3 className="text-[13.5px] font-bold text-black">
-                Computer Engineering and Business and Management student
-              </h3>
-              <span className="whitespace-nowrap text-[12.5px] font-bold text-black">
-                September 2022 - Present
-              </span>
-            </div>
-            <p className="text-[12.5px] text-neutral-900">University of La Salle - URL</p>
-            <ul className="mt-0.5 space-y-0.5 pl-4 text-[12.5px] leading-relaxed text-neutral-900">
-              <li className={bullet}>
-                Strong academic focus combining software engineering, data, and business strategy.
-              </li>
-              <li className={bullet}>
-                High workload and rigorous program requiring strong discipline, adaptability, and
-                continuous learning.
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <div className="flex items-baseline justify-between gap-4">
-              <h3 className="text-[13.5px] font-bold text-black">Data science Master&apos;s Degree</h3>
-              <span className="whitespace-nowrap text-[12.5px] font-bold text-black">
-                Start in Aug 2026
-              </span>
-            </div>
-            <p className="text-[12.5px] text-neutral-900">Lewis University</p>
-          </div>
-        </div>
-
-        {/* Additional Information */}
-        <h2 className={sectionHeading}>Additional Information</h2>
-        <ul className="space-y-0.5 text-[12.5px] leading-relaxed text-neutral-900">
-          <li className={bullet}>
-            <span className="font-bold">Languages:</span> Spanish-Catalan (native), English
-            (proficiency), German (beginner)
-          </li>
-          <li className={bullet}>
-            <span className="font-bold">Certifications:</span> CCNA, C2 Level English
-          </li>
-          <li className={bullet}>
-            <span className="font-bold">Awards/Activities:</span> Scholarship for women in
-            engineering, Winner of the First Lego League
-          </li>
-        </ul>
+        {/* Sections — rendered in data order */}
+        {cv.sections.map((section, index) => renderSection(section, index))}
       </article>
 
       {/* Page-scoped styles: clean sans-serif, edit affordance, and headerless A4 print */}

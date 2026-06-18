@@ -30,13 +30,13 @@ const Header = ({ terminalMode, onToggleTerminal, theme, onToggleTheme }: Header
   const handleCvClick = (event: React.MouseEvent) => {
     event.preventDefault();
     if (pathname === "/") {
-      document.getElementById("section-4")?.scrollIntoView({ behavior: "smooth" });
+      document.getElementById("section-2")?.scrollIntoView({ behavior: "smooth" });
       return;
     }
 
-    router.push("/#section-4");
+    router.push("/#section-2");
     setTimeout(() => {
-      document.getElementById("section-4")?.scrollIntoView({ behavior: "smooth" });
+      document.getElementById("section-2")?.scrollIntoView({ behavior: "smooth" });
     }, 100);
   };
 
@@ -65,7 +65,7 @@ const Header = ({ terminalMode, onToggleTerminal, theme, onToggleTheme }: Header
               </Link>
             </li>
             <li>
-              <a href="/#section-4" onClick={handleCvClick} className="btn-terminal">
+              <a href="/#section-2" onClick={handleCvClick} className="btn-terminal">
                 CV
               </a>
             </li>

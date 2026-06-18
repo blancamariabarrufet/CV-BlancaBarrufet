@@ -34,8 +34,7 @@ const CvActionButtons = ({ email }: CvActionButtonsProps) => {
   return (
     <div className="no-print flex flex-wrap gap-2">
       <a
-        href="/BlancaBarrufet-CV.pdf"
-        download
+        href="/cv?print=1"
         className="btn-terminal-primary"
       >
         <svg

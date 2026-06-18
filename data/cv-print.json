@@ -1,0 +1,125 @@
+{
+  "$schema": "./cv-print.schema.md",
+  "profile": {
+    "name": "Blanca M Barrufet Garbayo",
+    "headline": "AI and Data Engineer",
+    "contacts": [
+      "Barcelona",
+      "blancamariabarrufet@gmail.com",
+      "www.blancabarrufet.me"
+    ]
+  },
+  "summary": "AI and Data Engineer with experience developing enterprise AI chatbots, RAG architectures, and semantic search using different technologies. Passionate about building scalable AI solutions, solving complex problems, and continuously learning in fast-paced and international environments.",
+  "sections": [
+    {
+      "kind": "tag-grid",
+      "heading": "Technical Skills",
+      "items": [
+        "RAG",
+        "GraphRAG",
+        "LangChain",
+        "LlamaIndex",
+        "LLM Interaction",
+        "ETL Pipelines",
+        "Embeddings",
+        "Vector Databases",
+        "SQL",
+        "Data Modeling"
+      ]
+    },
+    {
+      "kind": "inline-list",
+      "heading": "Programming & Tools",
+      "items": [
+        "Python / JAVA",
+        "C/C++",
+        "REST APIs",
+        "API Development",
+        "Cloud AWS",
+        "Git",
+        "Docker"
+      ]
+    },
+    {
+      "kind": "inline-list",
+      "heading": "Personal Skills",
+      "tightTop": true,
+      "items": [
+        "Problem-solving",
+        "Communication",
+        "Team-work",
+        "Scrum",
+        "Analytical thinking",
+        "Adaptability"
+      ]
+    },
+    {
+      "kind": "bullets",
+      "heading": "Extra-curricular",
+      "items": [
+        {
+          "lead": "Barcelona Supercomputing Center -",
+          "text": "Mad for supercomputing is a course for baccalaureate students interested in STEM, organized by the Barcelona Supercomputing Center and Fundació Catalunya La Pedrera."
+        }
+      ]
+    },
+    {
+      "kind": "entries",
+      "heading": "Professional Experience",
+      "entries": [
+        {
+          "title": "Connecthink Innovation, S.L.",
+          "period": "November 2025 - Present",
+          "bullets": [
+            "Development of enterprise AI chatbots for querying and managing large-scale datasets.",
+            "Implementation of RAG architectures using LlamaIndex, pgvector, LangGraph, and GraphRAG.",
+            "Integration with internal systems and optimization of semantic search and response quality."
+          ]
+        },
+        {
+          "title": "La Salle - URL",
+          "period": "September 2024 - January 2026",
+          "text": "University collaborator as a mathematics, algebra, calculus and Mathematical Fundamentals teacher assistant in the Artificial Intelligence degree"
+        }
+      ]
+    },
+    {
+      "kind": "entries",
+      "heading": "Education",
+      "entries": [
+        {
+          "title": "Computer Engineering and Business and Management student",
+          "period": "September 2022 - Present",
+          "subtitle": "University of La Salle - URL",
+          "bullets": [
+            "Strong academic focus combining software engineering, data, and business strategy.",
+            "High workload and rigorous program requiring strong discipline, adaptability, and continuous learning."
+          ]
+        },
+        {
+          "title": "Data science Master's Degree",
+          "period": "Start in Aug 2026",
+          "subtitle": "Lewis University"
+        }
+      ]
+    },
+    {
+      "kind": "labeled",
+      "heading": "Additional Information",
+      "items": [
+        {
+          "label": "Languages:",
+          "text": "Spanish-Catalan (native), English (proficiency), German (beginner)"
+        },
+        {
+          "label": "Certifications:",
+          "text": "CCNA, C2 Level English"
+        },
+        {
+          "label": "Awards/Activities:",
+          "text": "Scholarship for women in engineering, Winner of the First Lego League"
+        }
+      ]
+    }
+  ]
+}

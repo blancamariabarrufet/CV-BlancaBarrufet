@@ -38,7 +38,7 @@ export default function Home() {
               <span>primary</span>
             </div>
 
-            <div className="grid gap-5 p-5 md:grid-cols-[1fr_154px]">
+            <div className="grid gap-5 p-5">
               <div>
                 <p className="mb-3 text-[10px] uppercase tracking-[0.12em] text-[var(--ink-muted)]">$ whoami</p>
                 <h1 className="text-[clamp(2.4rem,7vw,5.4rem)] font-semibold leading-[0.92] tracking-[-0.04em] text-[var(--ink)]">
@@ -55,16 +55,6 @@ export default function Home() {
                   <CvActionButtons email={cvData.profile.email} />
                 </div>
               </div>
-
-              <div className="module-muted flex min-h-[210px] flex-col items-center justify-between p-4">
-                <span className="self-start text-[10px] text-[var(--ink-muted)]">portrait.svg</span>
-                <div className="relative h-28 w-28">
-                  <div className="absolute left-1/2 top-3 h-14 w-14 -translate-x-1/2 rounded-full border border-dashed border-[var(--outline-strong)]" />
-                  <div className="absolute left-1/2 top-9 h-2 w-2 -translate-x-1/2 rounded-full bg-[var(--accent)]" />
-                  <div className="absolute bottom-2 left-1/2 h-14 w-24 -translate-x-1/2 rounded-t-full border border-dashed border-[var(--outline-strong)] border-b-0" />
-                </div>
-                <span className="self-end text-[10px] text-[var(--ink-muted)]">180*220</span>
-              </div>
             </div>
           </div>
 
@@ -72,7 +62,7 @@ export default function Home() {
             <div className="module-header">
               <div className="flex items-center gap-2">
                 <span className="status-dot" aria-hidden />
-                <span>00.meta</span>
+                <span>01.meta</span>
                 <span>|</span>
                 <span>Meta</span>
               </div>

@@ -59,7 +59,7 @@ const InteractiveCv = () => {
 
   return (
     <div className="space-y-7">
-      <SectionFrame id="section-4" code="04.stack" title="Skills" meta="n = 3">
+      <SectionFrame id="section-2" code="02.stack" title="Skills" meta="n = 3">
         <div className="space-y-4">
           {selectedSkill && (
             <div className="module-muted flex flex-wrap items-center justify-between gap-3 px-3 py-2 text-xs">
@@ -96,7 +96,7 @@ const InteractiveCv = () => {
         </div>
       </SectionFrame>
 
-      <SectionFrame code="02.exp" title="Experience" meta={`n = ${cvData.experience.length}`}>
+      <SectionFrame code="03.exp" title="Experience" meta={`n = ${cvData.experience.length}`}>
         <div className="space-y-3">
           {cvData.experience.map((experience, index) => {
             const isExpanded = expandedExperience.includes(experience.id);
@@ -153,7 +153,7 @@ const InteractiveCv = () => {
       </SectionFrame>
 
       {cvData.projects.length > 0 && (
-        <SectionFrame code="03.work" title="Selected Work" meta={`n = ${cvData.projects.length}`}>
+        <SectionFrame code="04.work" title="Selected Work" meta={`n = ${cvData.projects.length}`}>
           <div className="grid gap-3 lg:grid-cols-2">
             {cvData.projects.map((project, index) => {
               const isExpanded = expandedProjects.includes(project.id);
