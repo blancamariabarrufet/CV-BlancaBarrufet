@@ -72,6 +72,11 @@ export default function Home() {
               <MetaRow label="location" value={cvData.profile.location} />
               <MetaRow label="email" value={cvData.profile.email} href={`mailto:${cvData.profile.email}`} />
               <MetaRow label="web" value="blancabarrufet.me" />
+              <MetaRow
+                label="linkedin"
+                value="blanca-maría-barrufet"
+                href="https://www.linkedin.com/in/blanca-maría-barrufet-b72319265"
+              />
               <MetaRow label="status" value="open - advisory - roles" />
               <MetaRow label="ts" value="2026-05-23T14:00:00Z" />
               <div className="module-muted mt-4 p-3 text-[11px] leading-relaxed">
@@ -80,6 +85,7 @@ export default function Home() {
                 </p>
                 <p># builds retrieval systems</p>
                 <p># currently @ connecthink</p>
+                <p># colaborating @ uVic</p>
                 <p>
                   <span className="text-[var(--accent)]">~/blanca</span> $
                 </p>
@@ -124,8 +130,13 @@ export default function Home() {
 }
 
 function MetaRow({ label, value, href }: { label: string; value: string; href?: string }) {
+  const isExternal = href?.startsWith("http");
   const content = href ? (
-    <a href={href} className="break-all text-[var(--ink)] underline hover:text-[var(--accent)]">
+    <a
+      href={href}
+      className="break-all text-[var(--ink)] underline hover:text-[var(--accent)]"
+      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+    >
       {value}
     </a>
   ) : (

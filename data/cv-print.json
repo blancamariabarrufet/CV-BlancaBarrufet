@@ -68,6 +68,15 @@
       "heading": "Professional Experience",
       "entries": [
         {
+          "title": "Universitat de Vic – Universitat Central de Catalunya",
+          "period": "June 2026 - Present",
+          "bullets": [
+            "Digital Health Data Analyst at the Càtedra TIC Salut Social (UVic-UCC), working on a digital health indicators platform.",
+            "Leading the platform's web architecture with a focus on scalable data integration and user-oriented functionality.",
+            "Conducting data validation and analytical workflows, and designing AI agents to automate healthcare data analysis."
+          ]
+        },
+        {
           "title": "Connecthink Innovation, S.L.",
           "period": "November 2025 - Present",
           "bullets": [

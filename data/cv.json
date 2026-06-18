@@ -21,23 +21,37 @@
     "technical": [
       "RAG",
       "GraphRAG",
-      "LangChain",
-      "LlamaIndex",
+      "AI Agents",
       "LLM Interaction",
-      "ETL Pipelines",
+      "LangGraph",
+      "LlamaIndex",
       "Embeddings",
       "Vector Databases",
-      "SQL",
-      "Data Modeling"
+      "ETL Pipelines",
+      "Data Analysis",
+      "Data Validation",
+      "Data Modeling",
+      "Web Architecture",
+      "Multi-tenant SaaS"
     ],
     "programmingTools": [
       "Python",
+      "Java",
       "C/C++",
+      "SQL",
+      "TypeScript",
+      "React-Next.js",
+      "Supabase",
+      "Postgres",
+      "pgvector",
+      "Stripe",
+      "Bedrock",
+      "AWS",
+      "Azure",
       "REST APIs",
-      "API Development",
-      "Cloud (AWS / Azure)",
+      "Docker",
       "Git",
-      "Docker"
+      "Tailwind"
     ],
     "personal": [
       "Problem-solving",
@@ -49,6 +63,21 @@
     ]
   },
   "experience": [
+    {
+      "id": "exp-0",
+      "company": "Universitat de Vic – Universitat Central de Catalunya",
+      "title": "Digital Health Data Analyst - Catedra TIC Salut",
+      "start": "June 2026",
+      "end": "Present",
+      "bullets": [
+        "Part-time collaboration within the Càtedra TIC Salut Social (UVic-UCC) on a digital health indicators platform",
+        "Leading the development of the platform's web architecture, with a focus on scalable data integration and user-oriented functionality",
+        "Conducting data validation and analytical workflows to prepare high-quality healthcare data for recurring platform updates",
+        "Designing and implementing AI agents for data analysis, aimed at automating analytical tasks and supporting more efficient interpretation of healthcare information",
+        "Assisting in the incorporation of new datasets and in the continuous improvement of platform features in a public-sector, regulated environment"
+      ],
+      "tags": ["Web Architecture", "Data Analysis", "AI Agents", "Healthcare Data", "Data Validation", "Python", "Azure", "Public Sector"]
+    },
     {
       "id": "exp-1",
       "company": "Connecthink Innovation, S.L.",
@@ -160,31 +189,32 @@
   "projects": [
     {
       "id": "proj-1",
-      "name": "Tu dia de blanco",
+      "name": "Tu Día de Blanco — Hosted Digital Wedding Platform",
       "type": "Personal Project",
       "start": "2025",
       "end": "2026",
       "bullets": [
-        "A polished wedding web app that helps couples create elegant digital wedding experiences, collect guest information, manage event details, use AI functionality for easier management, and offer a guided inquiry flow for new clients.",
-        "Designed and built a wedding-focused platform with public landing pages, product pages, inquiry forms, authentication, registration flows, and private management screens.",
-        "Implemented Supabase-backed data storage, auth flows, Notion submission capture, Resend email templates, and structured registration data for guests and couples.",
-        "Created a warm, editorial interface tailored to engaged couples, balancing emotional presentation with practical tools and AI-assisted functionality for managing wedding-related workflows."
+        "Built a multi-tenant SaaS platform that lets couples and wedding planners design public invitation websites and run a private planning workspace — guests, seating, budget, and an AI concierge — for each wedding.",
+        "Designed a wedding-centric domain model with role-based Memberships (Owner / Editor / Viewer) and module-level permissions, supporting both a B2C couple channel (self-serve tiers) and a B2B planner channel (multi-wedding portfolios with ownership transfer).",
+        "Engineered the public Invitation Website as a fixed catalog of toggleable Sections with interchangeable Templates and Palettes, plus invite-code guest sessions gating RSVP responses and a knowledge-base AI Concierge for guest questions.",
+        "Implemented the full stack on Next.js 16 and React 19 with Supabase (Postgres, Auth, RLS) for secure multi-tenant data, Stripe for tiered subscriptions, and Vercel for deployment — backed by ADRs and a documented domain language for long-term maintainability."
       ],
-      "tags": ["Next.js", "React", "TypeScript", "Supabase", "Auth", "Resend", "Notion API", "Tailwind CSS", "Product Design", "Web App", "AI"],
+      "tags": ["React-Next.js", "Supabase", "Postgres", "Stripe", "TypeScript", "Tailwind", "Multi-tenant SaaS"],
       "url": "https://www.tudiadeblanco.com/"
     },
     {
       "id": "proj-2",
-      "name": "Project Name 2",
-      "type": "Academic Project",
-      "start": "Month Year",
-      "end": "Month Year",
+      "name": "Junsu – AI Compliance Risk Evaluation Platform",
+      "type": "Personal Project",
+      "start": "2026",
+      "end": "2026",
       "bullets": [
-        "Description of what you built and the problem it solved",
-        "Technologies and methodologies used in the implementation",
-        "Key achievements or outcomes of the project"
+        "Built an AI-powered compliance evaluation platform that helps identify, classify, and measure risks linked to business activities using structured LLM reasoning and calculated risk scoring.",
+        "Designed a compliance analysis application that maps organizational activities to relevant risks using large language models, combining AI judgment with rule-based calculations to produce structured, traceable risk assessments.",
+        "Implemented the project on AWS with a compliance-focused architecture, evaluating services such as Bedrock for secure model access and AWS-native deployment to handle sensitive evaluation data within centralized infrastructure.",
+        "Delivered automated risk matching, structured AI responses, scalable backend logic, and a clearer workflow for evaluating compliance exposure across different activities."
       ],
-      "tags": ["Java", "SQL", "Data Analysis"]
+      "tags": ["AWS", "Bedrock", "LLM Interaction", "React-Next.js", "Compliance", "Risk Analysis", "Data Analysis"]
     }
   ]
 }
