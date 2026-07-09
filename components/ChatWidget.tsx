@@ -86,35 +86,35 @@ const ChatWidget = () => {
             <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
             <span className="h-3 w-3 rounded-full bg-[#28c840]" />
           </div>
-          <div className="flex-1 text-center text-xs font-medium text-[var(--surface-low)]">
+          <div className="flex-1 text-center text-xs font-medium text-[var(--term-fg-muted)]">
             blanca@cv - bash - 80x24
           </div>
           <div className="w-[52px]" />
         </div>
 
-        <div ref={messagesContainerRef} className="flex-1 space-y-2 overflow-y-auto bg-[var(--code)] p-5 text-sm leading-relaxed">
-          <p className="text-[var(--surface-highest)]">Last login: interactive_cv on ttys000</p>
+        <div ref={messagesContainerRef} className="flex-1 space-y-2 overflow-y-auto bg-[var(--term-bg)] p-5 text-sm leading-relaxed">
+          <p className="text-[var(--term-fg-dim)]">Last login: interactive_cv on ttys000</p>
           {messages.map((message, index) => (
             <div key={`${message.role}-${index}`}>
               {message.role === "user" ? (
-                <p className="font-semibold text-[var(--surface-lowest)]">
+                <p className="font-semibold text-[var(--term-fg)]">
                   <span className="text-[var(--accent)]">blanca@cv</span>:<span className="text-[#f4a7bd]">~</span>$ {message.content}
                 </p>
               ) : (
-                <p className="whitespace-pre-wrap text-[var(--surface-low)]">{message.content}</p>
+                <p className="whitespace-pre-wrap text-[var(--term-fg-muted)]">{message.content}</p>
               )}
             </div>
           ))}
           {isLoading && (
-            <p className="font-semibold text-[var(--surface-lowest)]">
+            <p className="font-semibold text-[var(--term-fg)]">
               <span className="text-[var(--accent)]">blanca@cv</span>:<span className="text-[#f4a7bd]">~</span>$ <span className="terminal-cursor">_</span>
             </p>
           )}
         </div>
 
-        <div className="border-t border-white/10 bg-[var(--code)] p-4">
+        <div className="border-t border-white/10 bg-[var(--term-bg)] p-4">
           <div className="flex items-center gap-2">
-            <span className="shrink-0 text-sm font-semibold text-[var(--surface-lowest)]">
+            <span className="shrink-0 text-sm font-semibold text-[var(--term-fg)]">
               <span className="text-[var(--accent)]">blanca@cv</span>:<span className="text-[#f4a7bd]">~</span>$
             </span>
             <input
@@ -123,7 +123,7 @@ const ChatWidget = () => {
               onChange={(event) => setInput(event.target.value)}
               onKeyDown={handleKeyDown}
               disabled={isLoading}
-              className="flex-1 border-0 bg-transparent text-sm text-[var(--surface-lowest)] outline-none placeholder:text-[var(--surface-highest)]"
+              className="flex-1 border-0 bg-transparent text-sm text-[var(--term-fg)] outline-none placeholder:text-[var(--term-fg-dim)]"
               aria-label="Chat input"
             />
             <button

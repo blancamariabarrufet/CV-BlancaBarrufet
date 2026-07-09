@@ -1,10 +1,8 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
+import { FormEvent, useState } from "react";
 
 const ContactForm = () => {
-  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,65 +11,32 @@ const ContactForm = () => {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => {
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-    if (publicKey) {
-      emailjs.init(publicKey);
-    } else {
-      console.error("EmailJS public key is missing.");
-    }
-  }, []);
-
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setStatus("sending");
     setErrorMessage("");
 
-    if (!formRef.current) {
-      setStatus("error");
-      setErrorMessage("Form reference is missing.");
-      return;
-    }
-
     try {
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-      const clientTemplateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_CLIENT_ID;
-      const teamTemplateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_TEAM_ID;
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-      if (!serviceId || !clientTemplateId || !teamTemplateId || !publicKey) {
-        throw new Error("EmailJS configuration is missing. Please check your environment variables.");
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        throw new Error(data?.error || "Failed to send message.");
       }
-
-      const templateParams = {
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-        to_email: "blancamariabarrufet@gmail.com",
-      };
-
-      await emailjs.send(serviceId, teamTemplateId, templateParams, publicKey);
-      await emailjs.send(serviceId, clientTemplateId, templateParams, publicKey);
 
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
       setTimeout(() => setStatus("idle"), 5000);
     } catch (error: any) {
-      console.error("EmailJS error:", error);
+      console.error("Contact form error:", error);
       setStatus("error");
-
-      let message = "Failed to send message. Please try again or email me directly.";
-      if (error?.status === 412) {
-        message = "EmailJS error: template not found or disabled.";
-      } else if (error?.status === 403) {
-        message = "EmailJS error: invalid public key.";
-      } else if (error?.text) {
-        message = `Error: ${error.text}`;
-      } else if (error?.message) {
-        message = error.message;
-      }
-
-      setErrorMessage(message);
+      setErrorMessage(error?.message || "Failed to send message. Please try again or email me directly.");
     }
   };
 
@@ -83,9 +48,7 @@ const ContactForm = () => {
   };
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
-      <input type="hidden" name="to_email" value="blancamariabarrufet@gmail.com" />
-
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2">
         <Field label="Name" id="name">
           <input

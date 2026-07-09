@@ -32,11 +32,11 @@ function LayoutContent({ children }: ClientLayoutProps) {
 
   if (terminalMode) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--code)] p-4 sm:p-8">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--surface)] p-4 sm:p-8">
         <div className="absolute top-6 right-6">
           <button
             onClick={toggleTerminalMode}
-            className="border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--surface-low)] transition-colors hover:bg-white/10"
+            className="border border-[var(--accent-border)] bg-[var(--accent-soft)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--accent)] transition-colors hover:bg-[var(--accent-soft)] hover:border-[var(--accent)]"
             title="Exit Terminal Mode"
           >
             <span className="flex items-center gap-2">

@@ -26,6 +26,12 @@
     --ok: oklch(70% 0.17 148);
     --code: oklch(15.5% 0.01 83);
     --code-line: oklch(100% 0 0 / 0.11);
+
+    /* Terminal tokens — intentionally constant across light/midnight themes */
+    --term-bg: oklch(14% 0.05 260);
+    --term-fg: oklch(92% 0.018 260);
+    --term-fg-muted: oklch(74% 0.024 260);
+    --term-fg-dim: oklch(62% 0.026 260);
   }
 
   html[data-theme="midnight"] {
@@ -149,8 +155,8 @@
   }
 
   .module-dark {
-    @apply border text-[var(--surface-low)];
-    background: var(--code);
+    @apply border text-[var(--term-fg-muted)];
+    background: var(--term-bg);
     border-color: oklch(100% 0 0 / 0.12);
     border-radius: 2px;
   }

@@ -35,7 +35,7 @@ npm install
 
 # Set up environment variables
 cp .env.example .env.local
-# Edit .env.local with your EmailJS credentials
+# Edit .env.local with your Resend credentials
 
 # Run development server
 npm run dev
@@ -65,7 +65,7 @@ npm start
 ├── components/
 │   ├── ChatWidget.tsx        # Chatbot UI component
 │   ├── InteractiveCv.tsx     # Interactive CV with filtering
-│   ├── ContactForm.tsx       # Contact form with EmailJS
+│   ├── ContactForm.tsx       # Contact form with Resend
 │   ├── CvActionButtons.tsx   # CV action buttons
 │   ├── Header.tsx            # Site header
 │   └── Footer.tsx            # Site footer
@@ -135,44 +135,23 @@ The chatbot frontend is ready for integration. To connect your backend:
 
 ## Setting Up the Contact Form
 
-The contact form uses EmailJS to send messages directly to your email without a backend server.
+The contact form posts to `/api/contact`, which sends the message server-side with Resend.
 
-### EmailJS Setup
+### Resend Setup
 
-The contact form sends **two emails** when a user submits:
-1. **Team notification** - Email to you with the user's message
-2. **Client auto-reply** - Confirmation email to the user
+1. **Create a Resend Account**: Sign up at [https://resend.com/](https://resend.com/)
 
-1. **Create an EmailJS Account**: Sign up at [https://www.emailjs.com/](https://www.emailjs.com/)
+2. **Get Your API Key** from the Resend dashboard.
 
-2. **Create Two Templates**:
-   - **Team Template** (for you to receive messages):
-     - Template ID: `your_team_template_id`
-     - To Email: `your@email.com`
-     - Template content should include: `{{name}}`, `{{email}}`, `{{message}}`
-
-   - **Client Template** (auto-reply to users):
-     - Template ID: `your_client_template_id`
-     - To Email: `{{email}}` (sends to the form submitter)
-     - Template content: Thank you message
-
-3. **Get Your Credentials**:
-   - Service ID (e.g., `service_xxxxxxx`)
-   - Public Key (e.g., `xxxxxxxxxxxxx`)
-
-4. **Configure Environment Variables**:
+3. **Configure Environment Variables**:
    ```bash
    # .env.local
-   NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
-   NEXT_PUBLIC_EMAILJS_TEMPLATE_CLIENT_ID=your_client_template_id
-   NEXT_PUBLIC_EMAILJS_TEMPLATE_TEAM_ID=your_team_template_id
-   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
+   RESEND_API_KEY=your_resend_api_key
+   CONTACT_TO_EMAIL=you@example.com
+   RESEND_FROM_EMAIL="CV Contact <onboarding@resend.dev>"
    ```
 
-5. **Template Variables**: Both templates should use these form field names:
-   - `{{name}}` - Sender's name
-   - `{{email}}` - Sender's email
-   - `{{message}}` - Message content
+4. For production, verify a sending domain in Resend and update `RESEND_FROM_EMAIL`.
 
 **Important**: Never commit `.env.local` to git. It's already in `.gitignore` to protect your keys.
 
@@ -189,11 +168,11 @@ The contact form sends **two emails** when a user submits:
 - Visual indicators for filtered/highlighted items
 
 ### Contact Form
-- Professional contact form with EmailJS integration
+- Professional contact form with Resend integration
 - Real-time validation and status messages
 - Loading states and error handling
 - Direct email fallback option
-- Spam protection through EmailJS
+- Server-side email sending through Resend
 
 ### Download CV
 - **Download PDF**: Click button on CV page to download PDF
@@ -204,7 +183,7 @@ The contact form sends **two emails** when a user submits:
 - **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v3
-- **Email Service**: EmailJS
+- **Email Service**: Resend
 - **Animations**: CSS transitions & keyframes
 - **Fonts**: Inter (Google Fonts)
 

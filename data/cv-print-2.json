@@ -1,0 +1,146 @@
+{
+  "$schema": "./cv-print.schema.md",
+  "profile": {
+    "name": "Blanca M Barrufet Garbayo",
+    "headline": "AI and Data Engineer",
+    "contacts": [
+      "Barcelona",
+      "blancamariabarrufet@gmail.com",
+      "www.blancabarrufet.me"
+    ]
+  },
+  "summary": "AI and Data Engineer with experience developing enterprise AI chatbots, RAG architectures, and semantic search using different technologies. Passionate about building scalable AI solutions, solving complex problems, and continuously learning in fast-paced and international environments.",
+  "sections": [
+    {
+      "kind": "group",
+      "columns": 3,
+      "sections": [
+        {
+          "kind": "tag-grid",
+          "heading": "Technical Skills",
+          "columns": 2,
+          "items": [
+            "RAG",
+            "GraphRAG",
+            "LangChain",
+            "LlamaIndex",
+            "LLM Interaction",
+            "ETL Pipelines",
+            "Embeddings",
+            "Vector Databases",
+            "SQL",
+            "Data Modeling"
+          ]
+        },
+        {
+          "kind": "tag-grid",
+          "heading": "Programming & Tools",
+          "columns": 2,
+          "items": [
+            "Python / JAVA",
+            "C/C++",
+            "REST APIs",
+            "API Development",
+            "Cloud AWS",
+            "Git",
+            "Docker"
+          ]
+        },
+        {
+          "kind": "tag-grid",
+          "heading": "Personal Skills",
+          "columns": 1,
+          "items": [
+            "Problem-solving",
+            "Communication",
+            "Team-work",
+            "Analytical thinking",
+            "Adaptability"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "entries",
+      "heading": "Professional Experience",
+      "entries": [
+        {
+          "title": "Universitat de Vic – Universitat Central de Catalunya",
+          "period": "June 2026 - Present",
+          "bullets": [
+            "Digital Health Data Analyst, leading the web architecture of a digital health indicators platform with scalable data integration.",
+            "Conducting data validation and analytical workflows, and designing AI agents to automate healthcare data analysis."
+          ]
+        },
+        {
+          "title": "Connecthink Innovation, S.L.",
+          "period": "November 2025 - Present",
+          "bullets": [
+            "Development of enterprise AI chatbots for querying and managing large-scale datasets.",
+            "Implementation of RAG architectures using LlamaIndex, pgvector, LangGraph, and GraphRAG.",
+            "Integration with internal systems and optimization of semantic search and response quality."
+          ]
+        },
+        {
+          "title": "La Salle - URL",
+          "period": "September 2024 - January 2026",
+          "text": "University collaborator as a mathematics, algebra, calculus and Mathematical Fundamentals teacher assistant in the Artificial Intelligence degree"
+        }
+      ]
+    },
+    {
+      "kind": "entries",
+      "heading": "Projects",
+      "columns": 2,
+      "note": "Check blancabarrufet.me for more information.",
+      "entries": [
+        {
+          "title": "Tu Día de Blanco",
+          "period": "2025 - 2026",
+          "subtitle": "Hosted Digital Wedding Platform · www.tudiadeblanco.com",
+          "text": "Multi-tenant SaaS for couples and wedding planners — public invitation sites plus a private planning workspace"
+        },
+        {
+          "title": "Junsu",
+          "period": "2026",
+          "subtitle": "AI Compliance Risk Evaluation Platform",
+          "text": "AI-powered platform that maps business activities to compliance risks (GRC) using structured LLM reasoning and calculated risk scoring."
+        }
+      ]
+    },
+    {
+      "kind": "entries",
+      "heading": "Education",
+      "entries": [
+        {
+          "title": "Computer Engineering and Business and Management student",
+          "period": "September 2022 - Present",
+          "subtitle": "University of La Salle - URL",
+          "bullets": [
+            "Strong academic focus combining software engineering, data, and business strategy.",
+            "High workload and rigorous program requiring strong discipline, adaptability, and continuous learning."
+          ]
+        },
+        {
+          "title": "Data science Master's Degree",
+          "period": "Start in Aug 2026",
+          "subtitle": "Lewis University"
+        }
+      ]
+    },
+    {
+      "kind": "labeled",
+      "heading": "Additional Information",
+      "items": [
+        {
+          "label": "Languages:",
+          "text": "Spanish & Catalan (native), English (C2), German (beginner)"
+        },
+        {
+          "label": "Certifications & Awards:",
+          "text": "CCNA, C2 English; Scholarship for Women in Engineering, First Lego League Winner"
+        }
+      ]
+    }
+  ]
+}
