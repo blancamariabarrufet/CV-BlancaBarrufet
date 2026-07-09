@@ -12,7 +12,7 @@
   "keywords": [],
   "author": "Blanca M Barrufet Garbayo",
   "license": "ISC",
-  "description": "Professional portfolio with interactive CV and AI chatbot",
+  "description": "Professional portfolio with interactive CV",
   "dependencies": {
     "@types/node": "^25.0.10",
     "@types/react": "^19.2.10",

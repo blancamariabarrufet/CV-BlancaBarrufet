@@ -1,4 +1,3 @@
-import ChatWidget from "@/components/ChatWidget";
 import ContactForm from "@/components/ContactForm";
 import CvActionButtons from "@/components/CvActionButtons";
 import InteractiveCv from "@/components/InteractiveCv";
@@ -93,8 +92,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        <ChatWidget />
 
         <div className="grid gap-7 lg:grid-cols-4">
           <StatBlock code="exp" value={cvData.experience.length} label="roles" />
