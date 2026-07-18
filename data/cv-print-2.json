@@ -4,7 +4,7 @@
     "name": "Blanca M Barrufet Garbayo",
     "headline": "AI and Data Engineer",
     "contacts": [
-      "Barcelona",
+      "Chicago",
       "blancamariabarrufet@gmail.com",
       "www.blancabarrufet.me"
     ]
@@ -65,7 +65,7 @@
       "heading": "Professional Experience",
       "entries": [
         {
-          "title": "Universitat de Vic – Universitat Central de Catalunya",
+          "title": "Digital Health Data Analyst- uVic",
           "period": "June 2026 - Present",
           "bullets": [
             "Digital Health Data Analyst, leading the web architecture of a digital health indicators platform with scalable data integration.",
@@ -73,7 +73,7 @@
           ]
         },
         {
-          "title": "Connecthink Innovation, S.L.",
+          "title": "AI and Data Engigeer - Connecthink Innovation, S.L.",
           "period": "November 2025 - Present",
           "bullets": [
             "Development of enterprise AI chatbots for querying and managing large-scale datasets.",
@@ -82,9 +82,9 @@
           ]
         },
         {
-          "title": "La Salle - URL",
+          "title": "Teacher assistant- URL - La Salle",
           "period": "September 2024 - January 2026",
-          "text": "University collaborator as a mathematics, algebra, calculus and Mathematical Fundamentals teacher assistant in the Artificial Intelligence degree"
+          "text": "University collaborator as a maths, algebra, calculus and Maths Fundamentals teacher assistant in the AI degree"
         }
       ]
     },
